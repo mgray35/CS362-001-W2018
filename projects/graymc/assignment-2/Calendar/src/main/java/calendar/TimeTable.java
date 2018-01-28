@@ -229,12 +229,11 @@ public class TimeTable {
 	    	int nexti =  0;
 	    	for(int i = 0;i<pv.length;i++){
 	    	    int newi = pv[nexti];
-	    	    newi = pv[nexti];
 	    	   Collections.swap(apptsUpdatedList,newi,newi);
 	    	   nexti = newi;
-	    	} 
-     		return apptsUpdatedList;
+	    	}
 
-	        }
+     		return apptsUpdatedList;
+	    }
 
 }

@@ -57,6 +57,7 @@ public class Appt implements  Comparable<Appt>{
     
     /** Used for setting appointments to never recur */
     public static final int RECUR_NUMBER_NEVER = 0;
+
     /** Day(s) of the week that the appointment recurs on */
     private int[] recurDays;
     

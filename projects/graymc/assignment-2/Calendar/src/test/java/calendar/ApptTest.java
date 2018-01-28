@@ -13,6 +13,7 @@ public class ApptTest {
 	
 	Appt apptValidLow = new Appt(0, 0, 1, 1, 0, "Title", "Description");
 	Appt apptValidHigh = new Appt(23, 59, 31, 12, 10000, "This is a Rather Long Title", "This is a somewhat long description");
+	Appt apptValidFeb = new Appt(12, 30, 29, 2, 2000, "Leap day", "");
 	Appt apptBadHourHigh = new Appt(24, 0, 1, 1, 0, "Title", "Description");
 	Appt apptBadHourLow = new Appt(-1, 0, 1, 1, 0, "Title", "Description");
 	Appt apptBadMinHigh = new Appt(0, 60, 1, 1, 0, "Title", "Description");
@@ -27,6 +28,8 @@ public class ApptTest {
 		assertEquals(v, true);
 		v = apptValidHigh.getValid();
 		assertEquals(v, true);
+//		v = apptValidFeb.getValid();
+//		assertEquals(v, true);
 //		v = apptBadHourHigh.getValid();
 //		assertEquals(v, false);
 		v = apptBadHourLow.getValid();

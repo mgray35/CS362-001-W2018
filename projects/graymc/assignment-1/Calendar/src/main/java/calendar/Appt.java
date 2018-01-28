@@ -85,7 +85,7 @@ public class Appt implements  Comparable<Appt>{
      * @param description The appointment's details
      */
     public Appt(int startHour, int startMinute, 
-            int startDay, int startMonth, int startYear,String title, String description)
+            int startDay, int startMonth, int startYear, String title, String description)
     {
         //Sets all instance variables 
     	this.startHour = startHour;
@@ -289,29 +289,27 @@ public class Appt implements  Comparable<Appt>{
         }
         String represntationApp= printableHour +":"+ getStartMinute() + half;
         return represntationApp;
-    	
     }
+    
     public String toString()
     {
 		if (!getValid()) {
 		    return null;
 		}
          String day= this.getStartMonth()+"/"+this.getStartDay()+"/"+this.getStartYear() + " at ";
-        return "\t"+ day +  this.represntationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
+        return "\t"+ day +  this.represntationApp()  + ", " +  getTitle()+ ", "+  getDescription()+"\n";
     }
 
  //   The compareTo() method is hard to explain, in integer sorting, just remember
  //   startMinute+startHour+day+month+year is ascending order.
 	public int compareTo(Appt compareAppt) {
-		int startMinute=	this.startMinute - ((Appt) compareAppt).getStartMinute();
-		int startHour=	this.startHour - ((Appt) compareAppt).getStartHour();
+		int startMinute = this.startMinute - ((Appt) compareAppt).getStartMinute();
+		int startHour = this.startHour - ((Appt) compareAppt).getStartHour();
 		int day = this.getStartDay()-((Appt) compareAppt).getStartDay();
 		int month = this.startMonth -((Appt) compareAppt).getStartMonth();
 		int year = this.startYear -((Appt) compareAppt).getStartYear();
 
-
 		//ascending order
-
 		return startMinute+startHour+day+month+year;
 
 	}

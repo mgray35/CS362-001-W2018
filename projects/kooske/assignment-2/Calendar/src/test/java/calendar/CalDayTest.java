@@ -52,17 +52,19 @@ public class CalDayTest {
 
         String today = month + "/" + day + "/" + year;
         assertEquals("\t --- " + today + " --- \n --- -------- Appointments ------------ --- \n\n",calDay.toString());
+
+
     }
 
     /*
-     * Test adding appts
+     * Test addings appts to calday
      */
     @Test
     public void test03() throws Throwable {
         CalDay calDay = new CalDay(new GregorianCalendar());
         Appt appt1 = new Appt(0, 0, 1, 1, 2010, "", "");
         Appt appt2 = new Appt(2, 22, 2, 2, 2222, "", "");
-        
+
         calDay.addAppt(appt2);
         assertEquals(1, calDay.getSizeAppts());
 
@@ -71,6 +73,16 @@ public class CalDayTest {
 
         Iterator iter1 = calDay.iterator();
         assertTrue(iter1.hasNext());
+
+        calDay.toString();
+
+        // test more branches of calday class
+        CalDay calDay2 = new CalDay();
+        Iterator iter2 = calDay2.iterator();
+        assertNull(iter2);
+        calDay2.toString();
+        Appt apptBad = new Appt(25, 0, 1, 1, 2010, "", "");
+        calDay2.addAppt(apptBad);
+
     }
-//add more unit tests as you needed	
 }

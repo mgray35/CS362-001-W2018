@@ -112,7 +112,7 @@ public class Appt implements Comparable<Appt> {
 
         if (startHour < 0 || startHour > 23)
             this.valid = false;
-        else if (startMinute < 0 || startMinute > 59)
+        else if (startMinute < 0 || startMinute > 60)
             this.valid = false;
         else if (startDay < 1 || startDay > NumDaysInMonth)
             this.valid = false;
@@ -281,7 +281,7 @@ public class Appt implements Comparable<Appt> {
      * @return a printable representation of this appointment
      */
     private String represntationApp() {
-        String half = (getStartHour() > 11) ? "pm" : "am";
+        String half = (getStartHour() >= 11) ? "pm" : "am";
         int printableHour = getStartHour();
         if (printableHour > 11) {
             printableHour -= 12;

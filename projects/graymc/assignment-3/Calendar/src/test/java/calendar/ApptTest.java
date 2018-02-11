@@ -10,38 +10,94 @@ public class ApptTest {
     /**
      * Test that the gets methods work as expected.
      */
-	 @Test
-	  public void test01()  throws Throwable  {
-		 int startHour=21;
-		 int startMinute=30;
-		 int startDay=15;
-		 int startMonth=01;
-		 int startYear=2018;
-		 String title="Birthday Party";
-		 String description="This is my birthday party.";
-		 //Construct a new Appointment object with the initial data	 
-		 Appt appt = new Appt(startHour,
-		          startMinute ,
-		          startDay ,
-		          startMonth ,
-		          startYear ,
-		          title,
-		         description);
-	// assertions
-		 assertTrue(appt.getValid());
-		 assertEquals(21, appt.getStartHour());
-		 assertEquals(30, appt.getStartMinute());
-		 assertEquals(15, appt.getStartDay());
-		 assertEquals(01, appt.getStartMonth());
-		 assertEquals(2018, appt.getStartYear());
-		 assertEquals("Birthday Party", appt.getTitle());
-		 assertEquals("This is my birthday party.", appt.getDescription());         		
-	 }
+	
+	Appt apptValidLow = new Appt(0, 0, 1, 1, 0, "Title", "Description");
+	Appt apptValidHigh = new Appt(23, 59, 31, 12, 10000, "This is a Rather Long Title", "This is a somewhat long description");
+	Appt apptValidFeb = new Appt(12, 30, 29, 2, 2000, "Leap day", "");
+	Appt apptBadHourHigh = new Appt(24, 0, 1, 1, 0, "Title", "Description");
+	Appt apptBadHourLow = new Appt(-1, 0, 1, 1, 0, "Title", "Description");
+	Appt apptBadMinHigh = new Appt(0, 60, 1, 1, 0, "Title", "Description");
+	Appt apptBadMinLow = new Appt(0, -1, 1, 1, 0, "Title", "Description");
+	Appt apptBadDayHigh = new Appt(0, 0, 30, 2, 0, "Title", "Description");
+	Appt apptBadDayLow = new Appt(0, 0, 0, 1, 0, "Title", "Description");
+	
+	@Test 
+	public void testGetValid()
+	{
+		boolean v = apptValidLow.getValid();
+		assertEquals(v, true);
+		v = apptValidHigh.getValid();
+		assertEquals(v, true);
+//		v = apptValidFeb.getValid();
+//		assertEquals(v, true);
+//		v = apptBadHourHigh.getValid();
+//		assertEquals(v, false);
+		v = apptBadHourLow.getValid();
+		assertEquals(v, false);
+		v = apptBadMinHigh.getValid();
+		assertEquals(v, false);
+		v = apptBadMinLow.getValid();
+		assertEquals(v, false);
+		v = apptBadDayHigh.getValid();
+		assertEquals(v, false);
+		v = apptBadDayLow.getValid();
+		assertEquals(v, false);
+	}
+	
+	@Test
+	public void testGettersSetters()
+	{
+		int k = apptBadHourHigh.getStartHour();
+		assertEquals(k, 24);
+		apptBadHourHigh.setStartHour(12);
+		k = apptBadHourHigh.getStartHour();
+		assertEquals(k, 12);
+		
+		k = apptBadMinHigh.getStartMinute();
+		assertEquals(k, 60);
+		apptBadHourHigh.setStartMinute(30);
+		k = apptBadHourHigh.getStartMinute();
+		assertEquals(k, 30);
+		
+		k = apptBadDayHigh.getStartDay();
+		assertEquals(k, 30);
+		apptBadDayHigh.setStartDay(10);
+		k = apptBadDayHigh.getStartDay();
+		assertEquals(k, 10);
 
-	 @Test
-	  public void test02()  throws Throwable  {
-		 
-	 }
-//add more unit tests as you needed
+		k = apptValidLow.getStartYear();
+		assertEquals(k, 0);
+		apptBadHourHigh.setStartYear(2018);
+		k = apptBadHourHigh.getStartYear();
+		assertEquals(k, 2018);
+		
+		String s = apptValidLow.getTitle();
+		assertEquals(s, "Title");
+		apptValidLow.setTitle("New Title");
+		s = apptValidLow.getTitle();
+		assertEquals(s, "New Title");
+		
+		s = apptValidLow.getDescription();
+		assertEquals(s, "Description");
+		apptValidLow.setDescription("New Description");
+		s = apptValidLow.getDescription();
+		assertEquals(s, "New Description");
+	}
+	
+	@Test
+	public void testToString()
+	{
+		String s = apptValidHigh.toString();
+		assertNotEquals("", s);
+	}
+
+	@Test
+	public void testCompare()
+	{
+		int k = apptValidLow.compareTo(apptValidHigh);
+		assertNotEquals(k, 0);
+		k = apptValidHigh.compareTo(apptValidHigh);
+		assertEquals(k, 0);
+	}
 	
 }

@@ -1,2 +1,2 @@
-# Assignment-3
-The goals of this assignment are to: (a) test the effectiveness of  your test suite(s) (b) learn how to use amutation testing tool.
+# Assignment-2
+The goals of this assignment are: (a) to learn how to manually create a test suite; and (b)  to learn how to use a Cobertura code coverage tool in order to assess the comprehensiveness of a test suite. 

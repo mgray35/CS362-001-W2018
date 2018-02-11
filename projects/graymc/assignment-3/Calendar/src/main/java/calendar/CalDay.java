@@ -74,9 +74,7 @@ public class CalDay {
 		if (appt.getValid()) {
 			for (int i = 0; i < getAppts().size(); i++) {
 				//Put the appointment in the correct order - finish this
-				if (((Appt)getAppts().get(i)).getStartHour() >
-										appt.getStartHour()) {
-					
+				if (((Appt)getAppts().get(i)).getStartHour() > appt.getStartHour()) {
 					getAppts().add(i, appt);
 					return;
 				}
@@ -114,7 +112,7 @@ public class CalDay {
 		if(appts!=null)
 				this.appts = appts;
 		
-		if(appts!=null&&appts.size()==0)
+		if(appts==null&&appts.size()==0)
 			this.appts = appts;
 	}
 	
@@ -137,10 +135,12 @@ public class CalDay {
 	public LinkedList<Appt> getAppts() {
 	    return appts;
 	}
+
 	/** Gets size of the Appts */
 	public int getSizeAppts() {
 	    return appts.size();
-	}		
+	}
+
 	/** Gets day */
 	public int getDay() {
 	    return day;

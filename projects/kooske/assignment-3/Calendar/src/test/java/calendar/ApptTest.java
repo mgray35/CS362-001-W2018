@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class ApptTest {
     /**
-     * Test that the gets methods work as expected.
+     * Test that the gets methods work as expected and constructor initialized.
      */
     @Test
     public void test01() throws Throwable {
@@ -38,6 +38,10 @@ public class ApptTest {
         assertEquals(2018, appt.getStartYear());
         assertEquals("Birthday Party", appt.getTitle());
         assertEquals("This is my birthday party.", appt.getDescription());
+        assertEquals(2, appt.getRecurBy());
+        assertEquals(0, appt.getRecurNumber());
+        assertEquals(0, appt.getRecurDays().length);
+        assertEquals(0, appt.getRecurIncrement());
     }
 
     /*
@@ -103,27 +107,48 @@ public class ApptTest {
 
         appt.setStartHour(24);
         assertFalse(appt.getValid());
+        appt.setStartHour(23);
+        assertTrue(appt.getValid());
         appt.setStartHour(-1);
         assertFalse(appt.getValid());
         appt.setStartHour(0);
+        assertTrue(appt.getValid());
+        appt.setStartHour(6);
+        assertTrue(appt.getValid());
 
-        appt.setStartMinute(60);
-        //assertFalse(appt.getValid());
+        appt.setStartMinute(59);
+        assertTrue(appt.getValid());
+        //appt.setStartMinute(60);  //found one of my introduced bugs
+        appt.setStartMinute(61);
+        assertFalse(appt.getValid());
+        appt.setStartMinute(1);
+        assertTrue(appt.getValid());
         appt.setStartMinute(-1);
         assertFalse(appt.getValid());
         appt.setStartMinute(0);
+        assertTrue(appt.getValid());
 
         appt.setStartDay(0);
         assertFalse(appt.getValid());
-        appt.setStartDay(50);
+        appt.setStartDay(1);
+        assertTrue(appt.getValid());
+        appt.setStartDay(CalendarUtil.NumDaysInMonth(appt.getStartYear(), appt.getStartMonth()));
+        assertTrue(appt.getValid());
+        appt.setStartDay(32);
         assertFalse(appt.getValid());
+        appt.setStartDay(10);
+        assertTrue(appt.getValid());
 
-
-        // the false branch for months in isValid() will never be evaluated
-        // since the NumDaysInMonth CalendarUtil call will throw an error for
-        // an invalid month. isValid() depends on a valid month, this is bad
-//        appt.setStartMonth(0);
-//        assertFalse(appt.getValid());
+        appt.setStartMonth(1);
+        assertTrue(appt.getValid());
+        appt.setStartMonth(12);
+        assertTrue(appt.getValid());
+        //appt.setStartMonth(0);
+        //assertFalse(appt.getValid());
+        //appt.setStartMonth(13);
+        //assertFalse(appt.getValid());
+        appt.setStartMonth(5);
+        assertTrue(appt.getValid());
     }
 
     /*
@@ -131,15 +156,35 @@ public class ApptTest {
      */
     @Test
     public void test04() throws Throwable {
-        Appt apptLess = new Appt(0, 0, 1, 1, 2010, "", "");
+        Appt apptLess = new Appt(0, 0, 1, 1, 0, "", "");
         assertTrue(apptLess.getValid());
-        Appt apptGreat = new Appt(23, 59, 29, 11, 2018, "", "");
+        Appt apptGreat = new Appt(0, 1, 1, 1, 0, "", "");
         assertTrue(apptGreat.getValid());
 
         // compare works by summing the total difference between the different fields of the appt's.
         // appt1.compareTo(appt2) would find appt1 - appt2 for their fields
         // This way, a (+) value means appt1 > appt2, and a (-) value means appt1 < appt2
 
+        assertTrue(apptGreat.compareTo(apptLess) > 0);
+        assertTrue(apptLess.compareTo(apptGreat) < 0);
+
+        apptGreat.setStartHour(1);
+        apptGreat.setStartMinute(0);
+        assertTrue(apptGreat.compareTo(apptLess) > 0);
+        assertTrue(apptLess.compareTo(apptGreat) < 0);
+
+        apptGreat.setStartHour(0);
+        apptGreat.setStartMonth(2);
+        assertTrue(apptGreat.compareTo(apptLess) > 0);
+        assertTrue(apptLess.compareTo(apptGreat) < 0);
+
+        apptGreat.setStartMonth(1);
+        apptGreat.setStartDay(2);
+        assertTrue(apptGreat.compareTo(apptLess) > 0);
+        assertTrue(apptLess.compareTo(apptGreat) < 0);
+
+        apptGreat.setStartDay(1);
+        apptGreat.setStartYear(2011);
         assertTrue(apptGreat.compareTo(apptLess) > 0);
         assertTrue(apptLess.compareTo(apptGreat) < 0);
     }

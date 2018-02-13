@@ -283,7 +283,7 @@ public class Appt implements Comparable<Appt> {
     private String represntationApp() {
         String half = (getStartHour() >= 11) ? "pm" : "am";
         int printableHour = getStartHour();
-        if (printableHour > 11) {
+        if (printableHour >= 11) {
             printableHour -= 12;
         }
         if (printableHour == 0) {

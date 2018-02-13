@@ -84,16 +84,21 @@ public class ApptTest {
 
         // test setters and getters for recurrence
         assertFalse(appt.isRecurring());
-        appt.setRecurrence(new int[1], Appt.RECUR_BY_YEARLY, 0, Appt.RECUR_NUMBER_FOREVER);
+        appt.setRecurrence(new int[1], Appt.RECUR_BY_YEARLY, 2, Appt.RECUR_NUMBER_FOREVER);
         assertTrue(appt.isRecurring());
         assertEquals(Appt.RECUR_BY_YEARLY, appt.getRecurBy());
         assertEquals(Appt.RECUR_NUMBER_FOREVER, appt.getRecurNumber());
-        assertEquals(0, appt.getRecurIncrement());
+        assertEquals(2, appt.getRecurIncrement());
         assertEquals(1, appt.getRecurDays().length);
+
+        appt.setRecurrence(new int[1], Appt.RECUR_BY_YEARLY, 1, Appt.RECUR_NUMBER_FOREVER);
+        assertEquals(1, appt.getRecurIncrement());
+
 
         // test null check for recur days, null made into a matrix of length 0 by setRecurrence
         appt.setRecurrence(null, Appt.RECUR_BY_YEARLY, 0, Appt.RECUR_NUMBER_FOREVER);
         assertEquals(0, appt.getRecurDays().length);
+        assertEquals(0, appt.getRecurIncrement());
     }
 
     /*
@@ -149,6 +154,11 @@ public class ApptTest {
         //assertFalse(appt.getValid());
         appt.setStartMonth(5);
         assertTrue(appt.getValid());
+        //check is valid in month setters
+        appt.setStartMinute(-50);
+        appt.setStartMonth(8);
+        assertFalse(appt.getValid());
+        appt.setStartMinute(0);
     }
 
     /*
@@ -194,7 +204,7 @@ public class ApptTest {
      */
     @Test
     public void test05() throws Throwable {
-        int startHour = 8;
+        int startHour = 23;
         int startMinute = 30;
         int startDay = 30;
         int startMonth = 1;
@@ -202,17 +212,41 @@ public class ApptTest {
         String title = null;
         String description = null;
         //Construct a new Appointment object with the initial data
-        Appt appt = new Appt(startHour,
-                startMinute,
-                startDay,
-                startMonth,
-                startYear,
-                title,
-                description);
+        Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
         assertTrue(appt.getValid());
 
         // hardcoded string in by looking at the representationapp and tostring in appt to test
-        assertEquals("\t1/30/2018 at 8:30am ,, \n", appt.toString());
+        assertEquals("\t1/30/2018 at 11:30pm ,, \n", appt.toString());
+
+        appt.setStartHour(11);
+        //assertEquals("\t1/30/2018 at 11:30am ,, \n", appt.toString()); //found an introduced bug
+
+        appt.setStartHour(10);
+        assertEquals("\t1/30/2018 at 10:30am ,, \n", appt.toString());
+
+        appt.setStartHour(12);
+        assertEquals("\t1/30/2018 at 12:30pm ,, \n", appt.toString());
+
+        appt.setStartHour(0);
+        assertEquals("\t1/30/2018 at 12:30am ,, \n", appt.toString());
+
+        appt.setStartHour(22);
+        assertEquals("\t1/30/2018 at 10:30pm ,, \n", appt.toString());
+
+        //check am/pm specifically
+        appt.setStartHour(0);
+        assertTrue(appt.toString().contains("am"));
+        appt.setStartHour(10);
+        assertTrue(appt.toString().contains("am"));
+        appt.setStartHour(11);
+        //assertTrue(appt.toString().contains("am"));
+        appt.setStartHour(12);
+        assertTrue(appt.toString().contains("pm"));
+        appt.setStartHour(13);
+        assertTrue(appt.toString().contains("pm"));
+        appt.setStartHour(23);
+        assertTrue(appt.toString().contains("pm"));
+
 
         // check if invalid
         appt.setStartMinute(200);

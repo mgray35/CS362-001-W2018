@@ -36,6 +36,12 @@ public class CalDayTest {
 
     CalDay badCalDay = new CalDay();
     assertFalse(badCalDay.isValid());
+
+    GregorianCalendar cal1 = new GregorianCalendar(1996, 6, 21);
+    CalDay calDay1 = new CalDay(cal1);
+    assertEquals(21, calDay1.getDay());
+    assertEquals(1996, calDay1.getYear());
+    assertEquals(6, calDay1.getMonth());
     }
 
     /*
@@ -64,12 +70,17 @@ public class CalDayTest {
         CalDay calDay = new CalDay(new GregorianCalendar());
         Appt appt1 = new Appt(0, 0, 1, 1, 2010, "", "");
         Appt appt2 = new Appt(2, 22, 2, 2, 2222, "", "");
+        Appt appt3 = new Appt(2, 22, 2, 2, 2222, "", "");
+
 
         calDay.addAppt(appt2);
         assertEquals(1, calDay.getSizeAppts());
 
         calDay.addAppt(appt1);
         assertEquals(2, calDay.getSizeAppts());
+
+        calDay.addAppt(appt3);
+        assertEquals(3, calDay.getSizeAppts());
 
         Iterator iter1 = calDay.iterator();
         assertTrue(iter1.hasNext());
@@ -83,6 +94,9 @@ public class CalDayTest {
         calDay2.toString();
         Appt apptBad = new Appt(25, 0, 1, 1, 2010, "", "");
         calDay2.addAppt(apptBad);
+
+
+
 
     }
 }

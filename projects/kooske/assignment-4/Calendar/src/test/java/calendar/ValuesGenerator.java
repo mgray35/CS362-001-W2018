@@ -3,13 +3,17 @@ package calendar;
 import java.util.Random;
 
 public class ValuesGenerator {
-    private final static int MAX_VALUE = 10;
-    //private final static final int MIN_VALUE=-10;
+    private final static int MAX_VALUE = 100;
+    private final static int MIN_VALUE = -10;
     private final static float SET_TO_NULL = 0.05f;
 
+//    public static int RandInt(Random random) {
+//        // get a random number between 0 (inclusive) and  MAX_VALUE=10 (exclusive)
+//        return random.nextInt(MAX_VALUE);
+//    }
+
     public static int RandInt(Random random) {
-        // get a random number between 0 (inclusive) and  MAX_VALUE=10 (exclusive)
-        return random.nextInt(MAX_VALUE);
+        return (random.nextInt(MAX_VALUE) * (random.nextBoolean() ? -1 : 1));
     }
 
     /**

@@ -2,7 +2,9 @@ package calendar;
 
 import java.util.Calendar;
 import java.util.Random;
+import java.util.Arrays;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 
 /**
@@ -45,7 +47,7 @@ public class ApptRandomTest {
      * Generate Random Tests that tests Appt Class.
      */
     @Test
-    public void randomTest() throws Throwable {
+    public void randomTest() {
 
         long startTime = Calendar.getInstance().getTimeInMillis();
         long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
@@ -67,7 +69,6 @@ public class ApptRandomTest {
                 int startMinute = ValuesGenerator.RandInt(random);
                 int startDay = ValuesGenerator.RandInt(random);
                 int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
-                //int startMonth = ValuesGenerator.RandInt(random);
                 int startYear = ValuesGenerator.RandInt(random);
                 String title = "Birthday Party";
                 String description = "This is my birthday party.";
@@ -80,16 +81,10 @@ public class ApptRandomTest {
                 for (int i = 0; i < NUM_TESTS; i++) {
                     String methodName = ApptRandomTest.RandomSelectMethod(random);
                     if (methodName.equals("isValid")) {
-                        //by calling a setter we're called isValid()
-                        //effectively calling isValid() 5 times per execution
-                        appt.setStartHour(ValuesGenerator.RandInt(random));
-                        appt.setStartMinute(ValuesGenerator.RandInt(random));
-                        appt.setStartDay(ValuesGenerator.RandInt(random));
-                        appt.setStartYear(ValuesGenerator.RandInt(random));
-                        appt.setStartMonth(ValuesGenerator.getRandomIntBetween(random, 1, 11));
+                        assertTrue(appt.getValid());
                     } else if (methodName.equals("setRecurrence")) {
                         int sizeArray = ValuesGenerator.getRandomIntBetween(random, 0, 8);
-                        //1% change to get a null array
+                        //1% chance to get a null array
                         int[] recurDays;
                         if (ValuesGenerator.getBoolean((float) 0.01, random)) {
                             recurDays = null;
@@ -100,6 +95,15 @@ public class ApptRandomTest {
                         int recurIncrement = ValuesGenerator.RandInt(random);
                         int recurNumber = ApptRandomTest.RandomSelectRecurForeverNever(random);
                         appt.setRecurrence(recurDays, recur, recurIncrement, recurNumber);
+                        //assertions
+                        assertEquals(recurIncrement, appt.getRecurIncrement());
+                        assertEquals(recurNumber, appt.getRecurNumber());
+                        assertEquals(recur, appt.getRecurBy());
+                        if (recurDays == null) {
+                            assertTrue(Arrays.equals(new int[0], appt.getRecurDays()));
+                        } else {
+                            assertTrue(Arrays.equals(recurDays, appt.getRecurDays()));
+                        }
                     }
                 }
                 iteration++;

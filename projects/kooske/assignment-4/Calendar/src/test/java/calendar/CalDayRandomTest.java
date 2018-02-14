@@ -1,7 +1,7 @@
 package calendar;
 
 import org.junit.Test;
-
+import java.util.Calendar;
 import static org.junit.Assert.*;
 
 /**
@@ -13,7 +13,11 @@ public class CalDayRandomTest {
      * Generate Random Tests that tests CalDay Class.
      */
     @Test
-    public void randomTest() throws Throwable {
+    public void randomTest() {
+        long startTime = Calendar.getInstance().getTimeInMillis();
+        long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
+        System.out.println("Start testing...");
+
 
     }
 }

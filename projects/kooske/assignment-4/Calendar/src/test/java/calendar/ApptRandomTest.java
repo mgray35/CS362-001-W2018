@@ -13,7 +13,8 @@ import static org.junit.Assert.*;
 
 public class ApptRandomTest {
     private static final long TestTimeout = 60 * 500; /* Timeout at 30 seconds */
-    private static final int NUM_TESTS = 100;
+    //private static final long TestTimeout = 1; /* Timeout at 1 seconds - debug purposes to skip testing */
+    private static final int NUM_TESTS = 10;
 
     /**
      * Return a randomly selected method to be tests !.
@@ -47,18 +48,19 @@ public class ApptRandomTest {
                 //System.out.println(" Seed:"+randomSeed );
                 Random random = new Random(randomSeed);
                 //Construct a new Appointment object with the initial data
+                //allow chance of neg values so invalid appt
+                Appt appt = ValuesGenerator.generateRandomAppt(random, false, true);
                 for (int i = 0; i < NUM_TESTS; i++) {
                     String methodName = ApptRandomTest.RandomSelectMethod(random);
                     if (methodName.equals("isValid")) {
-                        Appt appt = ValuesGenerator.generateRandomAppt(random, false);
                         if (!appt.getValid()) {
-                            assertFalse(appt.getValid()); //redundant but makes it so every appt instance will be asserted
+                            //redundant but makes it so every appt instance will be asserted at least once
+                            assertFalse(appt.getValid());
                             iteration++;
-                            continue;
+                            break;
                         }
                         assertTrue(appt.getValid());
                     } else if (methodName.equals("setRecurrence")) {
-                        Appt appt = ValuesGenerator.generateRandomAppt(random, false);
                         int sizeArray = ValuesGenerator.getRandomIntBetween(random, 0, 8);
                         //1% chance to get a null array
                         int[] recurDays;
@@ -68,7 +70,7 @@ public class ApptRandomTest {
                             recurDays = ValuesGenerator.generateRandomArray(random, sizeArray);
                         }
                         int recur = ValuesGenerator.RandomSelectRecur(random);
-                        int recurIncrement = ValuesGenerator.RandInt(random);
+                        int recurIncrement = ValuesGenerator.RandInt(random, true);
                         int recurNumber = ValuesGenerator.RandomSelectRecurForeverNever(random);
                         appt.setRecurrence(recurDays, recur, recurIncrement, recurNumber);
                         //assertions

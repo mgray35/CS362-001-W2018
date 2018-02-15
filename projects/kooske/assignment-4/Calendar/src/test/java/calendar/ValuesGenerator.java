@@ -4,16 +4,14 @@ import java.util.Random;
 
 public class ValuesGenerator {
     private final static int MAX_VALUE = 100;
-    private final static int MIN_VALUE = -10;
+    //private final static int MIN_VALUE = -10;
     private final static float SET_TO_NULL = 0.05f;
 
-//    public static int RandInt(Random random) {
-//        // get a random number between 0 (inclusive) and  MAX_VALUE=10 (exclusive)
-//        return random.nextInt(MAX_VALUE);
-//    }
-
-    public static int RandInt(Random random) {
-        return (random.nextInt(MAX_VALUE) * (random.nextBoolean() ? -1 : 1));
+    public static int RandInt(Random random, boolean neg) {
+        if (neg) {
+            return (random.nextInt(MAX_VALUE) * (random.nextBoolean() ? -1 : 1));
+        }
+        return random.nextInt(MAX_VALUE);
     }
 
     /**
@@ -87,20 +85,26 @@ public class ValuesGenerator {
     }
 
 
-
-    public static Appt generateRandomAppt(Random random, boolean recur) {
-        int startHour = ValuesGenerator.RandInt(random);
-        int startMinute = ValuesGenerator.RandInt(random);
-        int startDay = ValuesGenerator.RandInt(random);
-        int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
-        int startYear = ValuesGenerator.RandInt(random);
+    /**
+     * Returns a randomly generated appt; not guaranteed to be valid
+     * @param random seeded random object
+     * @param recur boolean - specifies if recur should also be randomly generated
+     * @param neg boolean - specifies if negative values should be used, if false greatly reduce chance of invalid appt
+     * @return randomized appt object
+     */
+    public static Appt generateRandomAppt(Random random, boolean recur, boolean neg) {
+        int startHour = ValuesGenerator.RandInt(random, neg);
+        int startMinute = ValuesGenerator.RandInt(random, neg);
+        int startDay = ValuesGenerator.RandInt(random, neg);
+        int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 12);
+        int startYear = ValuesGenerator.RandInt(random, neg);
         String title = ValuesGenerator.getString(random);
         String description = ValuesGenerator.getString(random);
         Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
         //set recur if the boolean passed it true
         if (recur) {
             int recurBy = ValuesGenerator.RandomSelectRecur(random);
-            int recurIncrement = ValuesGenerator.RandInt(random);
+            int recurIncrement = ValuesGenerator.RandInt(random, neg);
             int recurNumber = ValuesGenerator.RandomSelectRecurForeverNever(random);
             int sizeArray = ValuesGenerator.getRandomIntBetween(random, 0, 8);
             int[] recurDays;

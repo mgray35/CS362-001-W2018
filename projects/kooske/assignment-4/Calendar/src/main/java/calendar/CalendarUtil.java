@@ -6,24 +6,27 @@ package calendar;
 
 
 /**
- *	A class containing utility methods that a calendar might
- *	need to function
- *
+ * A class containing utility methods that a calendar might
+ * need to function
  **/
 public class CalendarUtil {
 
-    /** integers specifying the number of days in each month **/
+    /**
+     * integers specifying the number of days in each month
+     **/
     public static int DaysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    /** static var used for February **/
+    /**
+     * static var used for February
+     **/
     public static final int FEBRUARY = 1;
 
     /**
-     *	Get number of days in specified year and month
+     * Get number of days in specified year and month
      *
-     *    @param year the year in integer form
-     *	@param month the month in integer form (0 is January, etc...)
-     *	@return the number of days in the specified month and year
+     * @param year  the year in integer form
+     * @param month the month in integer form (0 is January, etc...)
+     * @return the number of days in the specified month and year
      **/
     public static int NumDaysInMonth(int year, int month) {
 
@@ -37,10 +40,10 @@ public class CalendarUtil {
     }
 
     /**
-     *	Determines if the specified year is a Leap Year
+     * Determines if the specified year is a Leap Year
      *
-     *    @param year the year
-     *	@return true if the year is a Leap Year, false otherwise
+     * @param year the year
+     * @return true if the year is a Leap Year, false otherwise
      **/
     public static boolean IsLeapYear(int year) {
         //if the year is a multiple of 100, the year is a leap year if its also a multiple of 400

@@ -21,10 +21,11 @@ public class TimeTable {
 
     /**
      * Retrieves a range of appointments between two dates.
+     *
      * @return A list of all of the CalDays between firstDate (inclusive)
-     *  and lastDate (exclusive) with their respective appointments. 
+     * and lastDate (exclusive) with their respective appointments.
      * @throws DateOutOfRangeException If any of the days constructed by the
-     *  given values are invalid, or if lastDay is not after firstDay.
+     *                                 given values are invalid, or if lastDay is not after firstDay.
      **/
     public LinkedList<CalDay> getApptRange(LinkedList<Appt> appts, GregorianCalendar firstDay, GregorianCalendar lastDay) throws DateOutOfRangeException {
 
@@ -191,6 +192,7 @@ public class TimeTable {
 
     /**
      * Deletes the appointment's information from the appointments data list.
+     *
      * @return updated list of appointments if the appointment is deleted successfully, otherwise null.
      **/
     public LinkedList<Appt> deleteAppt(LinkedList<Appt> appts, Appt appt) {

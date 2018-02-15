@@ -18,70 +18,105 @@ import java.util.Comparator;
  */
 public class Appt implements Comparable<Appt> {
 
-    /** Used for knowing whether or not an appointment is valid or not */
+    /**
+     * Used for knowing whether or not an appointment is valid or not
+     */
     private boolean valid;
 
-    /** The starting hour of the appointment */
+    /**
+     * The starting hour of the appointment
+     */
     private int startHour;
 
-    /** The starting minute of the appointment */
+    /**
+     * The starting minute of the appointment
+     */
     private int startMinute;
 
-    /** The starting day of the appointment */
+    /**
+     * The starting day of the appointment
+     */
     private int startDay;
 
-    /** The starting month of the appointment */
+    /**
+     * The starting month of the appointment
+     */
     private int startMonth;
 
-    /** The starting year of the appointment */
+    /**
+     * The starting year of the appointment
+     */
     private int startYear;
 
-    /** The title or caption of the appointment */
+    /**
+     * The title or caption of the appointment
+     */
     private String title;
 
-    /** The description of the appointment */
+    /**
+     * The description of the appointment
+     */
     private String description;
 
-    /** Used for setting appointments to recur weekly */
+    /**
+     * Used for setting appointments to recur weekly
+     */
     public static final int RECUR_BY_WEEKLY = 1;
 
-    /** Used for setting appointments to recur monthly */
+    /**
+     * Used for setting appointments to recur monthly
+     */
     public static final int RECUR_BY_MONTHLY = 2;
 
-    /** Used for setting appointments to recur yearly */
+    /**
+     * Used for setting appointments to recur yearly
+     */
     public static final int RECUR_BY_YEARLY = 3;
 
-    /** Used for setting appointments to recur forever */
+    /**
+     * Used for setting appointments to recur forever
+     */
     public static final int RECUR_NUMBER_FOREVER = 1000;
 
-    /** Used for setting appointments to never recur */
+    /**
+     * Used for setting appointments to never recur
+     */
     public static final int RECUR_NUMBER_NEVER = 0;
-    /** Day(s) of the week that the appointment recurs on */
+    /**
+     * Day(s) of the week that the appointment recurs on
+     */
     private int[] recurDays;
 
-    /** What the appointment recurs on (weeks/months/years) */
+    /**
+     * What the appointment recurs on (weeks/months/years)
+     */
     private int recurBy;
 
-    /** How often the appointment recurs on (every ? weeks/months/years) */
+    /**
+     * How often the appointment recurs on (every ? weeks/months/years)
+     */
     private int recurIncrement;
 
-    /** How many recurrences (-1 for infinite, 0 by default) */
+    /**
+     * How many recurrences (-1 for infinite, 0 by default)
+     */
     private int recurNumber;
 
     // ----------------------------------------------------------
 
     /**
-     * Constructs a new appointment that starts at a specific time on the 
-     * date specified. The appointment is constructed with no recurrence 
+     * Constructs a new appointment that starts at a specific time on the
+     * date specified. The appointment is constructed with no recurrence
      * information by default. To set recurrence information, construct the
      * appointment and then call setRecurrence(...) method.
-     * @param startHour The hour that the appointment starts on. The hours are
-     *      numbered 0-23 to represent 12a.m. to 11pm on the day specified.
+     *
+     * @param startHour   The hour that the appointment starts on. The hours are
+     *                    numbered 0-23 to represent 12a.m. to 11pm on the day specified.
      * @param startMinute The minute of the hour the appointment starts on.
-     * @param startDay The day of the month the appointment starts on.
-     * @param startMonth The month of the year the appointment starts on.
-     * @param startYear The year the appointment starts on.
-     * @param title The title or caption to give the appointment
+     * @param startDay    The day of the month the appointment starts on.
+     * @param startMonth  The month of the year the appointment starts on.
+     * @param startYear   The year the appointment starts on.
+     * @param title       The title or caption to give the appointment
      * @param description The appointment's details
      */
     public Appt(int startHour, int startMinute,
@@ -123,37 +158,49 @@ public class Appt implements Comparable<Appt> {
     }
 
 
-    /** Sets startHour */
+    /**
+     * Sets startHour
+     */
     public void setStartHour(int startHour) {
         this.startHour = startHour;
         isValid();
     }
 
-    /** Sets startHour */
+    /**
+     * Sets startHour
+     */
     public void setStartMinute(int startMinute) {
         this.startMinute = startMinute;
         isValid();
     }
 
-    /** Sets startDay */
+    /**
+     * Sets startDay
+     */
     public void setStartDay(int startDay) {
         this.startDay = startDay;
         isValid();
     }
 
-    /** Sets startMonth */
+    /**
+     * Sets startMonth
+     */
     public void setStartMonth(int startMonth) {
         this.startMonth = startMonth;
         isValid();
     }
 
-    /** Sets startYear */
+    /**
+     * Sets startYear
+     */
     public void setStartYear(int startYear) {
         this.startYear = startYear;
         isValid();
     }
 
-    /** Sets title */
+    /**
+     * Sets title
+     */
     public void setTitle(String title) {
         if (title == null)
             this.title = "";
@@ -161,7 +208,9 @@ public class Appt implements Comparable<Appt> {
             this.title = title;
     }
 
-    /** Sets description */
+    /**
+     * Sets description
+     */
     public void setDescription(String description) {
         if (description == null)
             this.description = "";
@@ -170,42 +219,58 @@ public class Appt implements Comparable<Appt> {
     }
 
 
-    /** Gets startHour */
+    /**
+     * Gets startHour
+     */
     public int getStartHour() {
         return startHour;
     }
 
-    /** Gets startHour */
+    /**
+     * Gets startHour
+     */
     public int getStartMinute() {
         return startMinute;
     }
 
-    /** Gets startDay */
+    /**
+     * Gets startDay
+     */
     public int getStartDay() {
         return startDay;
     }
 
-    /** Gets startMonth */
+    /**
+     * Gets startMonth
+     */
     public int getStartMonth() {
         return startMonth;
     }
 
-    /** Gets startYear */
+    /**
+     * Gets startYear
+     */
     public int getStartYear() {
         return startYear;
     }
 
-    /** Gets title */
+    /**
+     * Gets title
+     */
     public String getTitle() {
         return title;
     }
 
-    /** Gets description */
+    /**
+     * Gets description
+     */
     public String getDescription() {
         return description;
     }
 
-    /** Gets description */
+    /**
+     * Gets description
+     */
     public boolean getValid() {
         return this.valid;
     }
@@ -228,45 +293,60 @@ public class Appt implements Comparable<Appt> {
         }
     }
 
-    /** Sets recurBy */
+    /**
+     * Sets recurBy
+     */
     private void setRecurBy(int recurBy) {
         this.recurBy = recurBy;
     }
 
-    /** Sets recurIncrement */
+    /**
+     * Sets recurIncrement
+     */
     private void setRecurIncrement(int recurIncrement) {
         this.recurIncrement = recurIncrement;
     }
 
-    /** Sets recurNumber */
+    /**
+     * Sets recurNumber
+     */
     private void setRecurNumber(int recurNumber) {
         this.recurNumber = recurNumber;
     }
 
-    /** Gets recurNumber */
+    /**
+     * Gets recurNumber
+     */
     public int getRecurNumber() {
         return recurNumber;
     }
 
-    /** Gets recurBy */
+    /**
+     * Gets recurBy
+     */
     public int getRecurBy() {
         return recurBy;
     }
 
-    /** Gets recurDays */
+    /**
+     * Gets recurDays
+     */
     public int[] getRecurDays() {
         return recurDays;
     }
 
     /**
      * Checks to see if an appointment recurrs or not
+     *
      * @return True if the appointment does occur more than once
      */
     public boolean isRecurring() {
         return getRecurNumber() != RECUR_NUMBER_NEVER;
     }
 
-    /** Gets recurIncrement */
+    /**
+     * Gets recurIncrement
+     */
     public int getRecurIncrement() {
         return recurIncrement;
     }
@@ -278,6 +358,7 @@ public class Appt implements Comparable<Appt> {
      * 12-hour time representation with a (lower case) "am" or "pm"
      * designator, followed by a colon and space, and then the appointment
      * description.
+     *
      * @return a printable representation of this appointment
      */
     private String represntationApp() {

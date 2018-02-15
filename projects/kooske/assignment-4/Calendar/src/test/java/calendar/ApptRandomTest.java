@@ -25,25 +25,6 @@ public class ApptRandomTest {
     }
 
     /**
-     * Return a randomly selected appointments to recur Weekly,Monthly, or Yearly !.
-     */
-    private static int RandomSelectRecur(Random random) {
-        int[] RecurArray = new int[]{Appt.RECUR_BY_WEEKLY, Appt.RECUR_BY_MONTHLY, Appt.RECUR_BY_YEARLY};// The list of the of setting appointments to recur Weekly,Monthly, or Yearly
-        int n = random.nextInt(RecurArray.length);// get a random number between 0 (inclusive) and  RecurArray.length (exclusive)
-        return RecurArray[n]; // return the value of the  appointments to recur
-    }
-
-    /**
-     * Return a randomly selected appointments to recur forever or Never recur  !.
-     */
-    private static int RandomSelectRecurForeverNever(Random random) {
-        // The list of the of setting appointments to recur RECUR_NUMBER_FOREVER, or RECUR_NUMBER_NEVER
-        int[] RecurArray = new int[]{Appt.RECUR_NUMBER_FOREVER, Appt.RECUR_NUMBER_NEVER};
-        int n = random.nextInt(RecurArray.length);// get a random number between 0 (inclusive) and  RecurArray.length (exclusive)
-        return RecurArray[n]; // return appointments to recur forever or Never recur
-    }
-
-    /**
      * Generate Random Tests that tests Appt Class.
      */
     @Test
@@ -65,24 +46,19 @@ public class ApptRandomTest {
                 long randomSeed = System.currentTimeMillis(); //10
                 //System.out.println(" Seed:"+randomSeed );
                 Random random = new Random(randomSeed);
-                int startHour = ValuesGenerator.RandInt(random);
-                int startMinute = ValuesGenerator.RandInt(random);
-                int startDay = ValuesGenerator.RandInt(random);
-                int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
-                int startYear = ValuesGenerator.RandInt(random);
-                String title = "Birthday Party";
-                String description = "This is my birthday party.";
                 //Construct a new Appointment object with the initial data
-                Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
-                if (!appt.getValid()) {
-                    iteration++;
-                    continue;
-                }
                 for (int i = 0; i < NUM_TESTS; i++) {
                     String methodName = ApptRandomTest.RandomSelectMethod(random);
                     if (methodName.equals("isValid")) {
+                        Appt appt = ValuesGenerator.generateRandomAppt(random, false);
+                        if (!appt.getValid()) {
+                            assertFalse(appt.getValid()); //redundant but makes it so every appt instance will be asserted
+                            iteration++;
+                            continue;
+                        }
                         assertTrue(appt.getValid());
                     } else if (methodName.equals("setRecurrence")) {
+                        Appt appt = ValuesGenerator.generateRandomAppt(random, false);
                         int sizeArray = ValuesGenerator.getRandomIntBetween(random, 0, 8);
                         //1% chance to get a null array
                         int[] recurDays;
@@ -91,9 +67,9 @@ public class ApptRandomTest {
                         } else {
                             recurDays = ValuesGenerator.generateRandomArray(random, sizeArray);
                         }
-                        int recur = ApptRandomTest.RandomSelectRecur(random);
+                        int recur = ValuesGenerator.RandomSelectRecur(random);
                         int recurIncrement = ValuesGenerator.RandInt(random);
-                        int recurNumber = ApptRandomTest.RandomSelectRecurForeverNever(random);
+                        int recurNumber = ValuesGenerator.RandomSelectRecurForeverNever(random);
                         appt.setRecurrence(recurDays, recur, recurIncrement, recurNumber);
                         //assertions
                         assertEquals(recurIncrement, appt.getRecurIncrement());

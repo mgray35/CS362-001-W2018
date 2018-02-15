@@ -66,4 +66,51 @@ public class ValuesGenerator {
         }
         return tempArray;
     }
+
+    /**
+     * Return a randomly selected appointments to recur Weekly,Monthly, or Yearly !.
+     */
+    public static int RandomSelectRecur(Random random) {
+        int[] RecurArray = new int[]{Appt.RECUR_BY_WEEKLY, Appt.RECUR_BY_MONTHLY, Appt.RECUR_BY_YEARLY};// The list of the of setting appointments to recur Weekly,Monthly, or Yearly
+        int n = random.nextInt(RecurArray.length);// get a random number between 0 (inclusive) and  RecurArray.length (exclusive)
+        return RecurArray[n]; // return the value of the  appointments to recur
+    }
+
+    /**
+     * Return a randomly selected appointments to recur forever or Never recur  !.
+     */
+    public static int RandomSelectRecurForeverNever(Random random) {
+        // The list of the of setting appointments to recur RECUR_NUMBER_FOREVER, or RECUR_NUMBER_NEVER
+        int[] RecurArray = new int[]{Appt.RECUR_NUMBER_FOREVER, Appt.RECUR_NUMBER_NEVER};
+        int n = random.nextInt(RecurArray.length);// get a random number between 0 (inclusive) and  RecurArray.length (exclusive)
+        return RecurArray[n]; // return appointments to recur forever or Never recur
+    }
+
+
+
+    public static Appt generateRandomAppt(Random random, boolean recur) {
+        int startHour = ValuesGenerator.RandInt(random);
+        int startMinute = ValuesGenerator.RandInt(random);
+        int startDay = ValuesGenerator.RandInt(random);
+        int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
+        int startYear = ValuesGenerator.RandInt(random);
+        String title = ValuesGenerator.getString(random);
+        String description = ValuesGenerator.getString(random);
+        Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
+        //set recur if the boolean passed it true
+        if (recur) {
+            int recurBy = ValuesGenerator.RandomSelectRecur(random);
+            int recurIncrement = ValuesGenerator.RandInt(random);
+            int recurNumber = ValuesGenerator.RandomSelectRecurForeverNever(random);
+            int sizeArray = ValuesGenerator.getRandomIntBetween(random, 0, 8);
+            int[] recurDays;
+            if (ValuesGenerator.getBoolean((float) 0.01, random)) {
+                recurDays = null;
+            } else {
+                recurDays = ValuesGenerator.generateRandomArray(random, sizeArray);
+            }
+            appt.setRecurrence(recurDays, recurBy, recurIncrement, recurNumber);
+        }
+        return appt;
+    }
 }

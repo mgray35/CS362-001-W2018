@@ -29,11 +29,11 @@ public class ValuesGenerator {
     };
     private static final int baseCharLength = BASE_CHARACTERS.length;
 
-    public static char getCharacter(Random random) {
+    private static char getCharacter(Random random) {
         return BASE_CHARACTERS[random.nextInt(baseCharLength)];
     }
 
-    public static String getString(Random random) {
+    private static String getString(Random random) {
         if (ValuesGenerator.getBoolean(SET_TO_NULL, random)) {
             return null;
         }
@@ -104,6 +104,7 @@ public class ValuesGenerator {
         //set recur if the boolean passed it true
         if (recur) {
             int recurBy = ValuesGenerator.RandomSelectRecur(random);
+            //recurIncrement is used no where in the program... LOL
             int recurIncrement = ValuesGenerator.RandInt(random, neg);
             int recurNumber = ValuesGenerator.RandomSelectRecurForeverNever(random);
             int sizeArray = ValuesGenerator.getRandomIntBetween(random, 0, 8);

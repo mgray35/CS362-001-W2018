@@ -212,7 +212,6 @@ public class TimeTable {
                 appts.remove(i);
                 return appts;
             }
-
         }
         return null;
     }

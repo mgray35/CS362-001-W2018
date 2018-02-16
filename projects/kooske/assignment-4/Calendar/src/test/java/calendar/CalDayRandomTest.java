@@ -1,18 +1,18 @@
 package calendar;
 
 import org.junit.Test;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
-
 import static org.junit.Assert.*;
+
 
 /**
  * Random Test Generator  for CalDay class.
  */
 public class CalDayRandomTest {
-    private static final long TestTimeout = 60 * 500; /* Timeout at 30 seconds */
+    //private static final long TestTimeout = 60 * 500; /* Timeout at 30 seconds */
+    private static final long TestTimeout = 1;
     private static final int NUM_TESTS = 100; /* possibility of invalid appts is high so */
 
     //redundant but still here for consistency with random testing

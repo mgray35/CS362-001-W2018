@@ -12,8 +12,8 @@ import static org.junit.Assert.*;
  */
 
 public class ApptRandomTest {
-    //private static final long TestTimeout = 60 * 500; /* Timeout at 30 seconds */
-    private static final long TestTimeout = 1; /* Timeout at 1 seconds - debug purposes to skip testing */
+    private static final long TestTimeout = 60 * 500; /* Timeout at 30 seconds */
+    //private static final long TestTimeout = 1; /* Timeout at 1 seconds - debug purposes to skip testing */
     private static final int NUM_TESTS = 10;
 
     /**

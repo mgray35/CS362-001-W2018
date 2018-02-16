@@ -15,8 +15,8 @@ public class TimeTableRandomTest {
     private static final int NUM_TESTS = 10;
 
     private static String RandomSelectMethod(Random random) {
-        //String[] methodArray = new String[]{"deleteAppt", "getApptRange"};// The list of the of methods to be tested in the Appt class
-        String[] methodArray = new String[]{"getApptRange"};// delete appt is utterly broken; this is used to test just getApptRange
+        String[] methodArray = new String[]{"deleteAppt", "getApptRange"};// The list of the of methods to be tested in the Appt class
+        //String[] methodArray = new String[]{"getApptRange"};// delete appt is utterly broken; this is used to test just getApptRange
         int n = random.nextInt(methodArray.length);// get a random number between 0 (inclusive) and  methodArray.length (exclusive)
         return methodArray[n]; // return the method name
     }
@@ -62,7 +62,11 @@ public class TimeTableRandomTest {
                             } else {
                                 appt = ValuesGenerator.generateRandomAppt(random, false, false);
                             }
-                            apptsNull = timeTable.deleteAppt(null, appt);
+                            if (ValuesGenerator.getBoolean( (float) 0.5, random)) {
+                                apptsNull = timeTable.deleteAppt(null, appt);
+                            } else {
+                                apptsNull = timeTable.deleteAppt(apptsNull, appt);
+                            }
                             assertNull(apptsNull);
                             continue;
                         }

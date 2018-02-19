@@ -6,9 +6,9 @@ import java.util.Random;
 
 public class ValuesGenerator {
 	private final static int MAX_VALUE=10;
-	//private final static final int MIN_VALUE=-10;
+	//private final static int MIN_VALUE=-10;
 
-	private final static float SET_TO_NULL = 0.05f;
+	public final static float SET_TO_NULL = 0.05f;
 	
 	public static int RandInt(Random random){
     	int n = random.nextInt(MAX_VALUE);// get a random number between 0 (inclusive) and  MAX_VALUE=10 (exclusive)
@@ -40,9 +40,12 @@ public class ValuesGenerator {
 
 	    final int randNum;
 	    
-	    if(ValuesGenerator.getBoolean(.75f,random)) randNum = random.nextInt(10);
-		else if(ValuesGenerator.getBoolean(.75f,random)) randNum = random.nextInt(50);
-		else randNum = random.nextInt(100);
+	    if(ValuesGenerator.getBoolean(.75f,random))
+	    	randNum = random.nextInt(10);
+		else if(ValuesGenerator.getBoolean(.75f,random))
+			randNum = random.nextInt(50);
+		else
+			randNum = random.nextInt(100);
 
 		char str[] = new char[randNum];
 

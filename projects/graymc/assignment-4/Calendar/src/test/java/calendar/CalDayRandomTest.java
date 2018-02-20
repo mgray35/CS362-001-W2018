@@ -30,7 +30,17 @@ public class CalDayRandomTest {
 		String title = ValuesGenerator.getString(random);
 		String description = ValuesGenerator.getString(random);
 
-		return new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
+		Appt appt = new Appt(startHour, startMinute , startDay , startMonth , startYear , title, description);
+
+		int[] recurDays=ValuesGenerator.generateRandomArray(random, ValuesGenerator.RandInt(random));
+		if (ValuesGenerator.getBoolean(ValuesGenerator.SET_TO_NULL,random))
+			recurDays = null;
+		int recur=ApptRandomTest.RandomSelectRecur(random);
+		int recurIncrement = ValuesGenerator.RandInt(random);
+		int recurNumber=ApptRandomTest.RandomSelectRecurForEverNever(random);
+		appt.setRecurrence(recurDays, recur, recurIncrement, recurNumber);
+
+		return appt;
 	}
 
 	public static GregorianCalendar RandomGC(Random random)
@@ -79,7 +89,7 @@ public class CalDayRandomTest {
 
 				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
 				if((iteration%10000)==0 && iteration!=0 )
-					System.out.println("elapsed time: "+ elapsed + " of "+ TEST_TIMEOUT);
+					System.out.println("elapsed time: "+ elapsed + " of " + TEST_TIMEOUT);
 			}
 		} catch(NullPointerException e){
 			System.out.println(e);

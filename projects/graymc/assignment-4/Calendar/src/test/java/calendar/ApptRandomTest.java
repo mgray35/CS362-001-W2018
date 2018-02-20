@@ -54,12 +54,11 @@ public class ApptRandomTest {
 		 long startTime = Calendar.getInstance().getTimeInMillis();
 		 long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
 
-		 
 		 System.out.println("Testing Appt...");
 		 
 		try{ 
 			for (int iteration = 0; elapsed < TestTimeout; iteration++) {
-				long randomseed =System.currentTimeMillis(); //10
+				long randomseed = System.currentTimeMillis(); //10
 	//			System.out.println(" Seed:"+randomseed );
 				Random random = new Random(randomseed);
 				
@@ -79,6 +78,7 @@ public class ApptRandomTest {
 				          title,
 				         description);
 			 if(!appt.getValid())continue;
+
 			for (int i = 0; i < NUM_TESTS; i++) {
 					String methodName = ApptRandomTest.RandomSelectMethod(random);
 					if (methodName.equals("setTitle")){
@@ -87,9 +87,9 @@ public class ApptRandomTest {
 					}
 					else if (methodName.equals("setRecurrence")){
 						int sizeArray=ValuesGenerator.getRandomIntBetween(random, 0, 8);
-						int[] recurDays=ValuesGenerator.generateRandomArray(random, sizeArray);
-						if (ValuesGenerator.getBoolean(ValuesGenerator.SET_TO_NULL,random))
-							recurDays = null;
+						int[] recurDays = null;
+						if (!ValuesGenerator.getBoolean(ValuesGenerator.SET_TO_NULL,random))
+							recurDays = ValuesGenerator.generateRandomArray(random, sizeArray);
 						int recur=ApptRandomTest.RandomSelectRecur(random);
 						int recurIncrement = ValuesGenerator.RandInt(random);
 						int recurNumber=ApptRandomTest.RandomSelectRecurForEverNever(random);
@@ -129,7 +129,7 @@ public class ApptRandomTest {
 				
 				 elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
 			        if((iteration%10000)==0 && iteration!=0 )
-			              System.out.println("elapsed time: "+ elapsed + " of "+TestTimeout);
+			              System.out.println("elapsed time: "+ elapsed + " of "+ TestTimeout);
 			 
 			}
 		}catch(NullPointerException e){

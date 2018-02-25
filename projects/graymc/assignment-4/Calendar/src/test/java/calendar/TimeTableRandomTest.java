@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
 
 public class TimeTableRandomTest {
 	private static final long TEST_TIMEOUT = 60 * 500 * 1; /* Timeout at 30 seconds */
-	private static final int NUM_TESTS = 100;
 
 	public static String RandomMethod(Random random){
 		String[] methodArray = new String[] {"getApptRange", "deleteAppt"};// The list of the of methods to be tested in the Appt class
@@ -58,44 +57,41 @@ public class TimeTableRandomTest {
 
 		 	for (int iteration = 0; elapsed < TEST_TIMEOUT; iteration++)
 		 	{
-				for (int i = 0; i < NUM_TESTS; i++) {
-					String methodName = RandomMethod(random);
-					if (methodName.equals("getApptRange")){
-						LinkedList<Appt> appts = RandomApptList(random);
-						GregorianCalendar gcFirst = CalDayRandomTest.RandomGC(random);
-						GregorianCalendar gcLast = CalDayRandomTest.RandomGC(random);
+				String methodName = RandomMethod(random);
+				if (methodName.equals("getApptRange")){
+					LinkedList<Appt> appts = RandomApptList(random);
+					GregorianCalendar gcFirst = CalDayRandomTest.RandomGC(random);
+					GregorianCalendar gcLast = CalDayRandomTest.RandomGC(random);
 
-						try {
-							tt.getApptRange(appts, gcFirst, gcLast);
-						} catch (DateOutOfRangeException e) {
-//						 	System.out.println(e);
-						}
+					try {
+						tt.getApptRange(appts, gcFirst, gcLast);
+					} catch (DateOutOfRangeException e) {
+						continue;
 					}
-					else if (methodName.equals("deleteAppt")) {
-						LinkedList<Appt> appts = null;
-						Appt apptToRemove = null;
+				}
+				else if (methodName.equals("deleteAppt")) {
+					LinkedList<Appt> appts = null;
+					Appt apptToRemove = null;
 
-						if (!ValuesGenerator.getBoolean(ValuesGenerator.SET_TO_NULL, random))
-							appts = RandomApptList(random);
+					if (!ValuesGenerator.getBoolean(ValuesGenerator.SET_TO_NULL, random))
+						appts = RandomApptList(random);
 
-						int indexToRemove;
-						if (appts != null) {
-							indexToRemove = ValuesGenerator.getRandomIntBetween(random, 0, appts.size() - 1);
-							if (appts.size() > 0 && !ValuesGenerator.getBoolean(ValuesGenerator.SET_TO_NULL, random))
-								apptToRemove = appts.get(indexToRemove);
-						}
+					int indexToRemove;
+					if (appts != null) {
+						indexToRemove = ValuesGenerator.getRandomIntBetween(random, 0, appts.size() - 1);
+						if (appts.size() > 0 && !ValuesGenerator.getBoolean(ValuesGenerator.SET_TO_NULL, random))
+							apptToRemove = appts.get(indexToRemove);
+					}
 
-						try {
-							tt.deleteAppt(appts, apptToRemove);
-						} catch (IndexOutOfBoundsException e) {
-							System.out.println(e);
-						}
+					try {
+						tt.deleteAppt(appts, apptToRemove);
+					} catch (IndexOutOfBoundsException e) {
+						System.out.println(e);
 					}
 				}
 
 				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-				if((iteration%1000)==0 && iteration!=0 )
-					System.out.println("elapsed time: "+ elapsed + " of " + TEST_TIMEOUT);
+				System.out.println("elapsed time: "+ elapsed + " of " + TEST_TIMEOUT);
 		 	}
 		 } catch(NullPointerException e){
 			 System.out.println(e);

@@ -87,9 +87,9 @@ protected void setUp() {
       assertTrue(urlVal.isValid("http://www.google.com/"));
       int statusPerLine = 60;
       int printed = 0;
-      if (printIndex)  {
-         statusPerLine = 6;
-      }
+//      if (printIndex)  {
+//         statusPerLine = 6;
+//      }
       do {
           StringBuilder testBuffer = new StringBuilder();
          boolean expected = true;
@@ -104,26 +104,26 @@ protected void setUp() {
          if(result == true)
         	 System.out.println(url);
          assertEquals(url, expected, result);
-         if (printStatus) {
-            if (printIndex) {
-               System.out.print(testPartsIndextoString());
-            } else {
-               if (result == expected) {
-                  System.out.print('.');
-               } else {
-                  System.out.print('X');
-               }
-            }
-            printed++;
-            if (printed == statusPerLine) {
-               System.out.println();
-               printed = 0;
-            }
-         }
+//         if (printStatus) {
+//            if (printIndex) {
+//               System.out.print(testPartsIndextoString());
+//            } else {
+//               if (result == expected) {
+//                  System.out.print('.');
+//               } else {
+//                  System.out.print('X');
+//               }
+//            }
+//            printed++;
+//            if (printed == statusPerLine) {
+//               System.out.println();
+//               printed = 0;
+//            }
+//         }
       } while (incrementTestPartsIndex(testPartsIndex, testObjects));
-      if (printStatus) {
-         System.out.println();
-      }
+//      if (printStatus) {
+//         System.out.println();
+//      }
    }
 
    public void testValidator202() {

@@ -77,14 +77,17 @@ public class CalDayRandomTest {
 			{
 				Random random = new Random(System.currentTimeMillis());
 
-				GregorianCalendar gc = RandomGC(random);
-				CalDay calDay = new CalDay(gc);
-
-				int maxAppts = ValuesGenerator.RandInt(random);
-				for (int i = 0; i < maxAppts; i++)
+				for (int i = 0; i < NUM_TESTS; i++)
 				{
-					Appt appt = RandomAppt(random);
-					calDay.addAppt(appt);
+					GregorianCalendar gc = RandomGC(random);
+					CalDay calDay = new CalDay(gc);
+
+					int maxAppts = ValuesGenerator.getRandomIntBetween(random, 0, 10);
+					for (int j = 0; i < maxAppts; i++)
+					{
+						Appt appt = RandomAppt(random);
+						calDay.addAppt(appt);
+					}
 				}
 
 				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);

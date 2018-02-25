@@ -50,7 +50,7 @@ public class TimeTable {
 	        }
 	        
 	        //Retrieve the appts - <appt> 
-		for (int i = 0; i < appts.size(); i++) {
+		for (int i = 0; i <= appts.size(); i++) {
 			Appt appt=appts.get(i);
 			if(!appt.getValid()) continue;
 			// Figure out which days the appointment occurs on
@@ -197,9 +197,7 @@ public class TimeTable {
 	     * @return updated list of appointments if the appointment is deleted successfully, otherwise null.
 	     **/
 	    public LinkedList<Appt> deleteAppt(LinkedList<Appt> appts,Appt appt) {
-	    	//Do not do anything to appts equals to null 
-	        if(appts==null||appt==null)
-        		return null;
+
 	    	//Do not do anything to invalid appointments
 	        if (!appt.getValid()) {
 	            return null;

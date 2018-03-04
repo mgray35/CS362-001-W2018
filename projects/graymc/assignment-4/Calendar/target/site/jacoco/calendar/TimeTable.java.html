@@ -50,7 +50,7 @@ public class TimeTable {
 	        }
 	        
 	        //Retrieve the appts - &lt;appt&gt; 
-<span class="fc bfc" id="L53" title="All 2 branches covered.">		for (int i = 0; i &lt; appts.size(); i++) {</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">		for (int i = 0; i &lt;= appts.size(); i++) {</span>
 <span class="fc" id="L54">			Appt appt=appts.get(i);</span>
 <span class="fc bfc" id="L55" title="All 2 branches covered.">			if(!appt.getValid()) continue;</span>
 			// Figure out which days the appointment occurs on
@@ -77,7 +77,7 @@ public class TimeTable {
 <span class="fc" id="L77">			}</span>
 
 		}
-<span class="fc" id="L80">		  return calDays;</span>
+<span class="nc" id="L80">		  return calDays;</span>
 	  }
 	   /**
 	     * This takes the given appointment and constructs a linked list of 
@@ -159,7 +159,7 @@ public class TimeTable {
 	                
 	                //The user did specify weekly recurrence, so increment the
 	                //day until it falls on a weekday the user specified
-<span class="fc bfc" id="L162" title="All 2 branches covered.">	                for (int k = 0; k &lt; 7; k++) {</span>
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">	                for (int k = 0; k &lt; 7; k++) {</span>
 <span class="fc" id="L163">	                    nextDay.add(nextDay.DAY_OF_MONTH, 1);</span>
 <span class="fc" id="L164">	                    int newDayOfWeek = nextDay.get(nextDay.DAY_OF_WEEK);</span>
 	                
@@ -175,7 +175,7 @@ public class TimeTable {
 	                //The loop above should have found a day. If the program 
 	                //execution is here then the weekdays specified are not in the
 	                //range of valid Gregorian Calendar Days. Return null here.
-<span class="fc" id="L178">	                return null;</span>
+<span class="nc" id="L178">	                return null;</span>
 	            case Appt.RECUR_BY_MONTHLY:
 	                //Just increment the month and return the day. Not sure what
 	                //happens when the day is 31 and the next month has 30 days...
@@ -197,25 +197,23 @@ public class TimeTable {
 	     * @return updated list of appointments if the appointment is deleted successfully, otherwise null.
 	     **/
 	    public LinkedList&lt;Appt&gt; deleteAppt(LinkedList&lt;Appt&gt; appts,Appt appt) {
-	    	//Do not do anything to appts equals to null 
-<span class="fc bfc" id="L201" title="All 4 branches covered.">	        if(appts==null||appt==null)</span>
-<span class="fc" id="L202">        		return null;</span>
+
 	    	//Do not do anything to invalid appointments
-<span class="fc bfc" id="L204" title="All 2 branches covered.">	        if (!appt.getValid()) {</span>
-<span class="fc" id="L205">	            return null;</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">	        if (!appt.getValid()) {</span>
+<span class="fc" id="L203">	            return null;</span>
 	        }
 
 	        //Remove the appointment from the list appts if applicable
 	        
-<span class="fc bfc" id="L210" title="All 2 branches covered.">	        for(int i=1;i&lt;appts.size()-1;i++){</span>
-<span class="fc" id="L211">	        	Appt tempAppt=appts.get(i);</span>
-<span class="fc bfc" id="L212" title="All 2 branches covered.">	        	if(tempAppt.equals(appt)){</span>
-<span class="fc" id="L213">	        		appts.remove(i);</span>
-<span class="fc" id="L214">	        		return appts;</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">	        for(int i=1;i&lt;appts.size()-1;i++){</span>
+<span class="fc" id="L209">	        	Appt tempAppt=appts.get(i);</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">	        	if(tempAppt.equals(appt)){</span>
+<span class="fc" id="L211">	        		appts.remove(i);</span>
+<span class="fc" id="L212">	        		return appts;</span>
 	        	}
 	        		
 	        }
-<span class="fc" id="L218">	        return null;</span>
+<span class="fc" id="L216">	        return null;</span>
 	    }
 	    
 	    public LinkedList&lt;Appt&gt; permute(LinkedList&lt;Appt&gt; appts, int[] pv){
@@ -225,18 +223,18 @@ public class TimeTable {
 	    	   If the ith element of pv is k, then the ith element of 
 	    	   appointments should be placed in the kth position.
 	    	*/
-<span class="nc" id="L228">	    	LinkedList&lt;Appt&gt; apptsUpdatedList=new LinkedList&lt;Appt&gt;(appts);   </span>
-<span class="nc bnc" id="L229" title="All 2 branches missed.">	    	if(pv.length != appts.size())</span>
-<span class="nc" id="L230">	    	    throw new IllegalArgumentException();</span>
+<span class="nc" id="L226">	    	LinkedList&lt;Appt&gt; apptsUpdatedList=new LinkedList&lt;Appt&gt;(appts);   </span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">	    	if(pv.length != appts.size())</span>
+<span class="nc" id="L228">	    	    throw new IllegalArgumentException();</span>
 
-<span class="nc" id="L232">	    	int nexti =  0;</span>
-<span class="nc bnc" id="L233" title="All 2 branches missed.">	    	for(int i = 0;i&lt;pv.length;i++){</span>
-<span class="nc" id="L234">	    	    int newi = pv[nexti];</span>
-<span class="nc" id="L235">	    	    newi = pv[nexti];</span>
-<span class="nc" id="L236">	    	   Collections.swap(apptsUpdatedList,newi,newi);</span>
-<span class="nc" id="L237">	    	   nexti = newi;</span>
+<span class="nc" id="L230">	    	int nexti =  0;</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">	    	for(int i = 0;i&lt;pv.length;i++){</span>
+<span class="nc" id="L232">	    	    int newi = pv[nexti];</span>
+<span class="nc" id="L233">	    	    newi = pv[nexti];</span>
+<span class="nc" id="L234">	    	   Collections.swap(apptsUpdatedList,newi,newi);</span>
+<span class="nc" id="L235">	    	   nexti = newi;</span>
 	    	} 
-<span class="nc" id="L239">     		return apptsUpdatedList;</span>
+<span class="nc" id="L237">     		return apptsUpdatedList;</span>
 
 	        }
 

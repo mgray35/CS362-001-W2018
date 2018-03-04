@@ -51,7 +51,6 @@ public class TimeTableRandomTest {
 
 		 System.out.println("Testing TimeTable...");
 
-		 try {
 		 	Random random = new Random(System.currentTimeMillis());
 		 	TimeTable tt = new TimeTable();
 
@@ -59,14 +58,21 @@ public class TimeTableRandomTest {
 		 	{
 				String methodName = RandomMethod(random);
 				if (methodName.equals("getApptRange")){
-					LinkedList<Appt> appts = RandomApptList(random);
-					GregorianCalendar gcFirst = CalDayRandomTest.RandomGC(random);
-					GregorianCalendar gcLast = CalDayRandomTest.RandomGC(random);
 
 					try {
-						tt.getApptRange(appts, gcFirst, gcLast);
-					} catch (DateOutOfRangeException e) {
-						continue;
+						LinkedList<Appt> appts = RandomApptList(random);
+						GregorianCalendar gcFirst = CalDayRandomTest.RandomGC(random);
+						GregorianCalendar gcLast = CalDayRandomTest.RandomGC(random);
+
+						try {
+							tt.getApptRange(appts, gcFirst, gcLast);
+						} catch (DateOutOfRangeException e) {
+							continue;
+						}
+					} catch (IndexOutOfBoundsException e) {
+						System.out.println(e);
+					} catch(NullPointerException e){
+						System.out.println(e);
 					}
 				}
 				else if (methodName.equals("deleteAppt")) {
@@ -87,14 +93,13 @@ public class TimeTableRandomTest {
 						tt.deleteAppt(appts, apptToRemove);
 					} catch (IndexOutOfBoundsException e) {
 						System.out.println(e);
+					} catch (NullPointerException e) {
+						System.out.println(e);
 					}
 				}
 
 				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
 				System.out.println("elapsed time: "+ elapsed + " of " + TEST_TIMEOUT);
 		 	}
-		 } catch(NullPointerException e){
-			 System.out.println(e);
-		 }
 	 }
 }

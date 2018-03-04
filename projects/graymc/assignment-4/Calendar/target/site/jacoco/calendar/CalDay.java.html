@@ -112,10 +112,10 @@ public class CalDay {
 	/** Sets appts */
 	private void setAppts(LinkedList&lt;Appt&gt; appts) {
 <span class="pc bpc" id="L114" title="1 of 2 branches missed.">		if(appts!=null)</span>
-<span class="fc" id="L115">				this.appts = appts;</span>
+<span class="fc" id="L115">			this.appts = appts;</span>
 		
-<span class="pc bpc" id="L117" title="2 of 4 branches missed.">		if(appts!=null&amp;&amp;appts.size()==0)</span>
-<span class="fc" id="L118">			this.appts = appts;</span>
+<span class="pc bpc" id="L117" title="3 of 4 branches missed.">		if(appts==null&amp;&amp;appts.size()==0)</span>
+<span class="nc" id="L118">			this.appts = appts;</span>
 <span class="fc" id="L119">	}</span>
 	
 	/** Sets day */

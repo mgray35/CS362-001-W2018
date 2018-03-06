@@ -67,7 +67,7 @@ public class TimeTableTest {
 			assertTrue(true);
 		}
 	}
-	
+
 	@Test
 	public void testDeleteAppt()
 	{

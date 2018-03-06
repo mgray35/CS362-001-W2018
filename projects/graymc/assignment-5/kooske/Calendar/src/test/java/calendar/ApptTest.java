@@ -11,7 +11,7 @@ public class ApptTest {
     /**
      * Test that the gets methods work as expected.
      */
-	
+
 	Appt apptValidLow = new Appt(0, 0, 1, 1, 0, "", "");
 	Appt apptValidHigh = new Appt(23, 59, 31, 12, 9999, "This is a Rather Long Title", "This is a somewhat long description");
 	Appt apptValidFeb = new Appt(12, 30, 29, 2, 2000, "Leap day", "");
@@ -21,8 +21,8 @@ public class ApptTest {
 	Appt apptBadMinLow = new Appt(0, -1, 1, 1, 2018, "Title", "Description");
 	Appt apptBadDayHigh = new Appt(0, 0, 30, 2, 2018, "Title", "Description");
 	Appt apptBadDayLow = new Appt(0, 0, 0, 1, 2018, "Title", "Description");
-	
-	@Test 
+
+	@Test
 	public void testGetValid()
 	{
 		boolean v = apptValidLow.getValid();
@@ -44,7 +44,7 @@ public class ApptTest {
 		v = apptBadDayLow.getValid();
 		assertEquals(v, false);
 	}
-	
+
 	@Test
 	public void testGettersSetters()
 	{
@@ -55,7 +55,7 @@ public class ApptTest {
 		assertEquals(k, 12);
 		boolean v = apptBadHourHigh.getValid();
 		assertEquals(true, v);
-		
+
 		k = apptBadMinHigh.getStartMinute();
 		assertEquals(k, 60);
 		apptBadMinHigh.setStartMinute(30);
@@ -63,7 +63,7 @@ public class ApptTest {
 		assertEquals(k, 30);
 		v = apptBadMinHigh.getValid();
 		assertEquals(true, v);
-		
+
 		k = apptBadDayHigh.getStartDay();
 		assertEquals(k, 30);
 		apptBadDayHigh.setStartDay(10);
@@ -77,7 +77,7 @@ public class ApptTest {
 		apptValidLow.setStartYear(2018);
 		k = apptValidLow.getStartYear();
 		assertEquals(k, 2018);
-		
+
 		String s = apptValidLow.getTitle();
 		assertEquals(s, "");
 		apptValidLow.setTitle("New Title");
@@ -86,7 +86,7 @@ public class ApptTest {
 		apptValidLow.setTitle(null);
 		s = apptValidLow.getTitle();
 		assertEquals(s, "");
-		
+
 		s = apptValidLow.getDescription();
 		assertEquals(s, "");
 		apptValidLow.setDescription("New Description");
@@ -96,7 +96,7 @@ public class ApptTest {
 		s = apptValidLow.getDescription();
 		assertEquals(s, "");
 	}
-	
+
 	@Test
 	public void testToString()
 	{

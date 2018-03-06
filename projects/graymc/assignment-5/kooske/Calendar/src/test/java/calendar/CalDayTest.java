@@ -19,7 +19,7 @@ public class CalDayTest {
 	CalDay day2 = new CalDay();
 	Appt appt1 = new Appt(8, 30, 25, 1, 2018, "Class", "CS 362");
 	Appt appt2 = new Appt(10, 0, 25, 1, 2018, "Recitation", "MTH 254");
-	
+
 	@Test
 	public void testAddAppt()
 	{
@@ -38,7 +38,7 @@ public class CalDayTest {
 		assertEquals(day.getMonth(), 1);
 		assertEquals(day.getYear(), 2018);
 	}
-	
+
 	@Test
 	public void testIsValid()
 	{

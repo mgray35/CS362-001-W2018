@@ -1,0 +1,13 @@
+Bug #1
+	Issue: Appt.isValid() returns true when the startMinute field is 60. This is incorrect behavior because the value of the startMinute field should never be larger than 59.
+	Cause: The conditional at line 150 of Appt.isValid() sets the valid field to false if startMinute is between 0 and 60 (inclusive). 
+	Solution: The range should instead be 0 to 59.
+	Severity: Low
+	Priority: Moderate
+
+Bug #2
+	Issue: The CalDay objects returned by TimeTable.getApptRange() do not contain any Appts, even when there are appointments on those days.
+	Cause: In the Appt class, a valid month is between 1 and 12 (inclusive). However, in the GregorianCalander class, which the Calendar app makes heavy use of, months are stored as ints between 0 and 11. As such, when the GregorianCalander object is created at line 98 of TimeTable.getApptOccurrences() using Appt.getStartMonth(), the month stored in the GC object is actually a month after that of the appointment. This causes the method to effectively skip a month of occurrences of the appointment. As an example, one of my tests attempted to retrieve a range of appointments between January 30th and February 6th. The GregorianCalander objects representing these dates had month fields of 0 and 1, respectively. However, an Appt with the same dates would store January and February as 1 and 2, respectively. So, at line 98 of TimeTable.getApptOccurrences, when the occurrenceDay variable is initialized, the month value 1 is passed in to the constructor. For Appt, 1 represents January, but, for GregorianCalendar, 1 represents February. The problem then arises at the check "if (!occurrenceDay.before(lastDay))". Although the method under these conditions should be comparing January 30 and February 6, it is instead comparing February 30 and February 6, causing it to immediately return without doing anything.
+	Solution: When passing the month value into the GregorianCalander constructor, be sure to subtract 1 from appt.getStartMonth(). In general, use caution whenever the month values of Appt, CalDay, and GregorianCalendar are interacting with one another.
+	Severity: Moderate
+	Priority: High

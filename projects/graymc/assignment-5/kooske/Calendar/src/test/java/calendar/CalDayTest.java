@@ -14,29 +14,33 @@ import static org.junit.Assert.*;
 
 public class CalDayTest {
 
-	GregorianCalendar gc = new GregorianCalendar(2018, 1, 25);
+	GregorianCalendar gc = new GregorianCalendar(2018, 0, 25);
 	CalDay day = new CalDay(gc);
 	CalDay day2 = new CalDay();
-	Appt appt1 = new Appt(8, 30, 25, 1, 2018, "Class", "CS 362");
-	Appt appt2 = new Appt(10, 0, 25, 1, 2018, "Recitation", "MTH 254");
+	Appt appt1 = new Appt(0, 30, 25, 1, 2018, "Class", "CS 362");
+	Appt appt2 = new Appt(1, 0, 25, 1, 2018, "Recitation", "MTH 254");
+	Appt appt3 = new Appt(23, 30, 25, 1, 2018, "Study", "CS 325");
 
 	@Test
 	public void testAddAppt()
 	{
 		day.addAppt(appt2);
-		assertEquals(day.getSizeAppts(), 1);
+		assertEquals(1, day.getSizeAppts());
+		day.addAppt(appt3);
+		assertEquals(2, day.getSizeAppts());
 		day.addAppt(appt1);
-		assertEquals(day.getSizeAppts(), 2);
-		assertEquals(day.getAppts().get(0).getTitle(), "Class");
-		assertEquals(day.getAppts().get(1).getTitle(), "Recitation");
+		assertEquals(3, day.getSizeAppts());
+		assertEquals("Class", day.getAppts().get(0).getTitle());
+		assertEquals("Recitation", day.getAppts().get(1).getTitle());
+		assertEquals("Study", day.getAppts().get(2).getTitle());
 	}
 
 	@Test
 	public void testGetters()
 	{
-		assertEquals(day.getDay(), 25);
-		assertEquals(day.getMonth(), 1);
-		assertEquals(day.getYear(), 2018);
+		assertEquals(25, day.getDay());
+		assertEquals(0, day.getMonth());
+		assertEquals(2018, day.getYear());
 	}
 
 	@Test
@@ -65,5 +69,11 @@ public class CalDayTest {
 		String s = day.toString();
 		assertNotNull(s);
 		assertNotEquals("", s);
+		day.addAppt(appt1);
+		day.addAppt(appt2);
+		s = day.toString();
+		assertNotNull(s);
+		assertNotEquals("", s);
+		s = day2.toString();
 	}
 }

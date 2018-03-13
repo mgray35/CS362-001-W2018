@@ -16,7 +16,6 @@ public class DateOutOfRangeException extends java.lang.Exception {
 
     /**
      * Constructs an <code>DateOutOfRangeException</code> with the specified detail message.
-     *
      * @param msg the detail message.
      */
     public DateOutOfRangeException(String msg) {

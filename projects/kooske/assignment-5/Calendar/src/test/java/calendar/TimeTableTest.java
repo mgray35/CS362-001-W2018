@@ -6,7 +6,6 @@ package calendar;
 
 import java.util.*;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -28,7 +27,7 @@ public class TimeTableTest {
         appt1.setRecurrence(days, 1, 2 , -1);
 
         LinkedList<Appt> apptList = new LinkedList<Appt>(Arrays.asList(appt3, appt1, appt2));
-        LinkedList<CalDay> calList = timeTable.getApptRange(apptList, today, nextWeek);
+        LinkedList<CalDay> calList = timeTable.getApptRange(apptList, today, nextWeek); //this is failing now
         assertEquals(11, calList.size());
 
         //apptList = timeTable.permute(apptList, permuteVector);

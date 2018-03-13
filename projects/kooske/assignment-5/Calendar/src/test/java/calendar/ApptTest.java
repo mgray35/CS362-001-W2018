@@ -110,10 +110,10 @@ public class ApptTest {
         Appt appt = new Appt(0, 0, 1, 1, 2010, "", "");
         assertTrue(appt.getValid());
 
-        appt.setStartHour(24);
+        appt.setStartHour(24); //here is a bug
         assertFalse(appt.getValid());
         appt.setStartHour(23);
-        assertTrue(appt.getValid());
+        assertFalse(appt.getValid());
         appt.setStartHour(-1);
         assertFalse(appt.getValid());
         appt.setStartHour(0);
@@ -123,7 +123,7 @@ public class ApptTest {
 
         appt.setStartMinute(59);
         assertTrue(appt.getValid());
-        //appt.setStartMinute(60);  //found one of my introduced bugs
+        appt.setStartMinute(60);  //found one of my introduced bugs
         appt.setStartMinute(61);
         assertFalse(appt.getValid());
         appt.setStartMinute(1);
@@ -219,7 +219,7 @@ public class ApptTest {
         assertEquals("\t1/30/2018 at 11:30pm ,, \n", appt.toString());
 
         appt.setStartHour(11);
-        //assertEquals("\t1/30/2018 at 11:30am ,, \n", appt.toString()); //found an introduced bug
+        assertEquals("\t1/30/2018 at 11:30am ,, \n", appt.toString()); //found an introduced bug
 
         appt.setStartHour(10);
         assertEquals("\t1/30/2018 at 10:30am ,, \n", appt.toString());

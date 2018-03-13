@@ -1,0 +1,7 @@
+- Appt.java: isValid() line 115
+	Hours from 23-24 are considered valid; hours go from 0-23
+	
+-TimeTable.java: getApptRange() line 53
+	iterator in for loop goes from 0-appts.size() inclusive, meaning on the final 
+	iteration an out of bounds index will be accessed
+	

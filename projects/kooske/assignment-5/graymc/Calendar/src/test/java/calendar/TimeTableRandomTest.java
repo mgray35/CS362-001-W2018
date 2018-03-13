@@ -10,8 +10,8 @@ import static org.junit.Assert.*;
  * Random Test Generator  for TimeTable class.
  */
 public class TimeTableRandomTest {
-    //private static final long TestTimeout = 60 * 500; /* Timeout at 30 seconds */
-    private static final long TestTimeout = 1;
+    private static final long TestTimeout = 60 * 500; /* Timeout at 30 seconds */
+    //private static final long TestTimeout = 1;
     private static final int NUM_TESTS = 10;
 
     private static String RandomSelectMethod(Random random) {

@@ -112,7 +112,7 @@ public class Appt implements Comparable<Appt> {
 
         if (startHour < 0 || startHour > 23)
             this.valid = false;
-        else if (startMinute < 0 || startMinute > 60)
+        else if (startMinute < 0 || startMinute > 59)
             this.valid = false;
         else if (startDay < 1 || startDay > NumDaysInMonth)
             this.valid = false;

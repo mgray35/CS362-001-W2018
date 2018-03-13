@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class ApptTest {
     /**
-     * Test that the gets methods work as expected and constructor initialized.
+     * Test that the gets methods work as expected.
      */
     @Test
     public void test01() throws Throwable {
@@ -38,10 +38,6 @@ public class ApptTest {
         assertEquals(2018, appt.getStartYear());
         assertEquals("Birthday Party", appt.getTitle());
         assertEquals("This is my birthday party.", appt.getDescription());
-        assertEquals(2, appt.getRecurBy());
-        assertEquals(0, appt.getRecurNumber());
-        assertEquals(0, appt.getRecurDays().length);
-        assertEquals(0, appt.getRecurIncrement());
     }
 
     /*
@@ -84,21 +80,16 @@ public class ApptTest {
 
         // test setters and getters for recurrence
         assertFalse(appt.isRecurring());
-        appt.setRecurrence(new int[1], Appt.RECUR_BY_YEARLY, 2, Appt.RECUR_NUMBER_FOREVER);
+        appt.setRecurrence(new int[1], Appt.RECUR_BY_YEARLY, 0, Appt.RECUR_NUMBER_FOREVER);
         assertTrue(appt.isRecurring());
         assertEquals(Appt.RECUR_BY_YEARLY, appt.getRecurBy());
         assertEquals(Appt.RECUR_NUMBER_FOREVER, appt.getRecurNumber());
-        assertEquals(2, appt.getRecurIncrement());
+        assertEquals(0, appt.getRecurIncrement());
         assertEquals(1, appt.getRecurDays().length);
-
-        appt.setRecurrence(new int[1], Appt.RECUR_BY_YEARLY, 1, Appt.RECUR_NUMBER_FOREVER);
-        assertEquals(1, appt.getRecurIncrement());
-
 
         // test null check for recur days, null made into a matrix of length 0 by setRecurrence
         appt.setRecurrence(null, Appt.RECUR_BY_YEARLY, 0, Appt.RECUR_NUMBER_FOREVER);
         assertEquals(0, appt.getRecurDays().length);
-        assertEquals(0, appt.getRecurIncrement());
     }
 
     /*
@@ -110,55 +101,29 @@ public class ApptTest {
         Appt appt = new Appt(0, 0, 1, 1, 2010, "", "");
         assertTrue(appt.getValid());
 
-        appt.setStartHour(24); //here is a bug
-        assertFalse(appt.getValid());
-        appt.setStartHour(23);
+        appt.setStartHour(24);
         assertFalse(appt.getValid());
         appt.setStartHour(-1);
         assertFalse(appt.getValid());
         appt.setStartHour(0);
-        assertTrue(appt.getValid());
-        appt.setStartHour(6);
-        assertTrue(appt.getValid());
 
-        appt.setStartMinute(59);
-        assertTrue(appt.getValid());
-        appt.setStartMinute(60);  //found one of my introduced bugs
-        appt.setStartMinute(61);
+        appt.setStartMinute(60);
         assertFalse(appt.getValid());
-        appt.setStartMinute(1);
-        assertTrue(appt.getValid());
         appt.setStartMinute(-1);
         assertFalse(appt.getValid());
         appt.setStartMinute(0);
-        assertTrue(appt.getValid());
 
         appt.setStartDay(0);
         assertFalse(appt.getValid());
-        appt.setStartDay(1);
-        assertTrue(appt.getValid());
-        appt.setStartDay(CalendarUtil.NumDaysInMonth(appt.getStartYear(), appt.getStartMonth()));
-        assertTrue(appt.getValid());
-        appt.setStartDay(32);
+        appt.setStartDay(50);
         assertFalse(appt.getValid());
-        appt.setStartDay(10);
-        assertTrue(appt.getValid());
 
-        appt.setStartMonth(1);
-        assertTrue(appt.getValid());
-        appt.setStartMonth(12);
-        assertTrue(appt.getValid());
-        //appt.setStartMonth(0);
-        //assertFalse(appt.getValid());
-        //appt.setStartMonth(13);
-        //assertFalse(appt.getValid());
-        appt.setStartMonth(5);
-        assertTrue(appt.getValid());
-        //check is valid in month setters
-        appt.setStartMinute(-50);
-        appt.setStartMonth(8);
-        assertFalse(appt.getValid());
-        appt.setStartMinute(0);
+
+        // the false branch for months in isValid() will never be evaluated
+        // since the NumDaysInMonth CalendarUtil call will throw an error for
+        // an invalid month. isValid() depends on a valid month, this is bad
+//        appt.setStartMonth(0);
+//        assertFalse(appt.getValid());
     }
 
     /*
@@ -166,35 +131,15 @@ public class ApptTest {
      */
     @Test
     public void test04() throws Throwable {
-        Appt apptLess = new Appt(0, 0, 1, 1, 0, "", "");
+        Appt apptLess = new Appt(0, 0, 1, 1, 2010, "", "");
         assertTrue(apptLess.getValid());
-        Appt apptGreat = new Appt(0, 1, 1, 1, 0, "", "");
+        Appt apptGreat = new Appt(23, 59, 29, 11, 2018, "", "");
         assertTrue(apptGreat.getValid());
 
         // compare works by summing the total difference between the different fields of the appt's.
         // appt1.compareTo(appt2) would find appt1 - appt2 for their fields
         // This way, a (+) value means appt1 > appt2, and a (-) value means appt1 < appt2
 
-        assertTrue(apptGreat.compareTo(apptLess) > 0);
-        assertTrue(apptLess.compareTo(apptGreat) < 0);
-
-        apptGreat.setStartHour(1);
-        apptGreat.setStartMinute(0);
-        assertTrue(apptGreat.compareTo(apptLess) > 0);
-        assertTrue(apptLess.compareTo(apptGreat) < 0);
-
-        apptGreat.setStartHour(0);
-        apptGreat.setStartMonth(2);
-        assertTrue(apptGreat.compareTo(apptLess) > 0);
-        assertTrue(apptLess.compareTo(apptGreat) < 0);
-
-        apptGreat.setStartMonth(1);
-        apptGreat.setStartDay(2);
-        assertTrue(apptGreat.compareTo(apptLess) > 0);
-        assertTrue(apptLess.compareTo(apptGreat) < 0);
-
-        apptGreat.setStartDay(1);
-        apptGreat.setStartYear(2011);
         assertTrue(apptGreat.compareTo(apptLess) > 0);
         assertTrue(apptLess.compareTo(apptGreat) < 0);
     }
@@ -204,7 +149,7 @@ public class ApptTest {
      */
     @Test
     public void test05() throws Throwable {
-        int startHour = 23;
+        int startHour = 8;
         int startMinute = 30;
         int startDay = 30;
         int startMonth = 1;
@@ -212,41 +157,17 @@ public class ApptTest {
         String title = null;
         String description = null;
         //Construct a new Appointment object with the initial data
-        Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
+        Appt appt = new Appt(startHour,
+                startMinute,
+                startDay,
+                startMonth,
+                startYear,
+                title,
+                description);
         assertTrue(appt.getValid());
 
         // hardcoded string in by looking at the representationapp and tostring in appt to test
-        assertEquals("\t1/30/2018 at 11:30pm ,, \n", appt.toString());
-
-        appt.setStartHour(11);
-        assertEquals("\t1/30/2018 at 11:30am ,, \n", appt.toString()); //found an introduced bug
-
-        appt.setStartHour(10);
-        assertEquals("\t1/30/2018 at 10:30am ,, \n", appt.toString());
-
-        appt.setStartHour(12);
-        assertEquals("\t1/30/2018 at 12:30pm ,, \n", appt.toString());
-
-        appt.setStartHour(0);
-        assertEquals("\t1/30/2018 at 12:30am ,, \n", appt.toString());
-
-        appt.setStartHour(22);
-        assertEquals("\t1/30/2018 at 10:30pm ,, \n", appt.toString());
-
-        //check am/pm specifically
-        appt.setStartHour(0);
-        assertTrue(appt.toString().contains("am"));
-        appt.setStartHour(10);
-        assertTrue(appt.toString().contains("am"));
-        appt.setStartHour(11);
-        //assertTrue(appt.toString().contains("am"));
-        appt.setStartHour(12);
-        assertTrue(appt.toString().contains("pm"));
-        appt.setStartHour(13);
-        assertTrue(appt.toString().contains("pm"));
-        appt.setStartHour(23);
-        assertTrue(appt.toString().contains("pm"));
-
+        assertEquals("\t1/30/2018 at 8:30am ,, \n", appt.toString());
 
         // check if invalid
         appt.setStartMinute(200);

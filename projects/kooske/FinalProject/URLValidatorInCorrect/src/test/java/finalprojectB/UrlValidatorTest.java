@@ -20,6 +20,7 @@ public class UrlValidatorTest extends TestCase {
    public static void main(String[] argv) {
       UrlValidatorTest urlValidatorTest = new UrlValidatorTest("url test");
       urlValidatorTest.testManualTest();
+      urlValidatorTest.testIsValidAuthority();
    }
 
    public void testManualTest()
@@ -32,25 +33,45 @@ public class UrlValidatorTest extends TestCase {
       assertFalse(urlValidator.isValid("http//ww.badurl,net"));
    }
 
-
-   public void testYourFirstPartition()
+   public void testIsValidScheme()
    {
-      //You can use this function to implement your First Partition testing
 
    }
 
-   public void testYourSecondPartition(){
-      //You can use this function to implement your Second Partition testing
+   public void testIsValidAuthority()
+   {
+      UrlValidator urlValidator = new UrlValidator();
+//      assertTrue(urlValidator.isValidAuthority("www.google.com"));
+//      assertTrue(urlValidator.isValidAuthority("en.wikipedia.org"));
+//      assertTrue(urlValidator.isValidAuthority("g.uk"));
+
+//      assertFalse(urlValidator.isValidAuthority(""));
+//      assertFalse(urlValidator.isValidAuthority("www..com"));
+//      assertFalse(urlValidator.isValidAuthority("foo.bar"));
+//      assertFalse(urlValidator.isValidAuthority("foo."));
+//      assertFalse(urlValidator.isValidAuthority(".bar"));
+
+//      assertTrue(urlValidator.isValidAuthority("0.0.0.0"));
+//      assertTrue(urlValidator.isValidAuthority("255.255.255.255"));
+
+//      assertFalse(urlValidator.isValidAuthority("256.256.256.256"));
+//      assertFalse(urlValidator.isValidAuthority("0.0.0"));
+//      assertFalse(urlValidator.isValidAuthority("0.0.0.0.0"));
+   }
+
+   public void testIsValidPath()
+   {
 
    }
-   //You need to create more test cases for your Partitions if you need to 
+
+   public void testIsValidQuery()
+   {
+
+   }
 
    public void testIsValid()
    {
       //You can use this function for programming based testing
 
    }
-
-
-
 }

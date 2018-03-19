@@ -20,6 +20,7 @@ public class UrlValidatorTest extends TestCase {
    public static void main(String[] argv) {
       UrlValidatorTest urlValidatorTest = new UrlValidatorTest("url test");
       urlValidatorTest.testManualTest();
+      urlValidatorTest.testIsValidAuthority();
    }
 
    public void testManualTest()
@@ -39,7 +40,23 @@ public class UrlValidatorTest extends TestCase {
 
    public void testIsValidAuthority()
    {
+      UrlValidator urlValidator = new UrlValidator();
+//      assertTrue(urlValidator.isValidAuthority("www.google.com"));
+//      assertTrue(urlValidator.isValidAuthority("en.wikipedia.org"));
+//      assertTrue(urlValidator.isValidAuthority("g.uk"));
 
+//      assertFalse(urlValidator.isValidAuthority(""));
+//      assertFalse(urlValidator.isValidAuthority("www..com"));
+//      assertFalse(urlValidator.isValidAuthority("foo.bar"));
+//      assertFalse(urlValidator.isValidAuthority("foo."));
+//      assertFalse(urlValidator.isValidAuthority(".bar"));
+
+//      assertTrue(urlValidator.isValidAuthority("0.0.0.0"));
+//      assertTrue(urlValidator.isValidAuthority("255.255.255.255"));
+
+//      assertFalse(urlValidator.isValidAuthority("256.256.256.256"));
+//      assertFalse(urlValidator.isValidAuthority("0.0.0"));
+//      assertFalse(urlValidator.isValidAuthority("0.0.0.0.0"));
    }
 
    public void testIsValidPath()

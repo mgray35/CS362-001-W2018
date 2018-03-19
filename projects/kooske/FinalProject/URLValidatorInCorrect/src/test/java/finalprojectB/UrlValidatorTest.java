@@ -32,25 +32,29 @@ public class UrlValidatorTest extends TestCase {
       assertFalse(urlValidator.isValid("http//ww.badurl,net"));
    }
 
-
-   public void testYourFirstPartition()
+   public void testIsValidScheme()
    {
-      //You can use this function to implement your First Partition testing
 
    }
 
-   public void testYourSecondPartition(){
-      //You can use this function to implement your Second Partition testing
+   public void testIsValidAuthority()
+   {
 
    }
-   //You need to create more test cases for your Partitions if you need to 
+
+   public void testIsValidPath()
+   {
+
+   }
+
+   public void testIsValidQuery()
+   {
+
+   }
 
    public void testIsValid()
    {
       //You can use this function for programming based testing
 
    }
-
-
-
 }

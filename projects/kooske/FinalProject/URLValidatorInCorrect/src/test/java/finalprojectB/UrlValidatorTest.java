@@ -26,9 +26,9 @@ public class UrlValidatorTest extends TestCase {
    {
       UrlValidator urlValidator = new UrlValidator();
       assertFalse(urlValidator.isValid("asaodkfsdl"));
-//      assertTrue(urlValidator.isValid("www.google.com"));
+//      assertTrue(urlValidator.isValid("http://www.google.com"));
 //      assertTrue(urlValidator.isValid("https://en.wikipedia.org/"));
-//      assertTrue(urlValidator.isValid("facebook.com"));
+//      assertTrue(urlValidator.isValid("https://facebook.com"));
       assertFalse(urlValidator.isValid("http//ww.badurl,net"));
    }
 

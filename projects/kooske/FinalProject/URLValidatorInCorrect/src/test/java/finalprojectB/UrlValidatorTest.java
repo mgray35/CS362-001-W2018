@@ -3,6 +3,8 @@ package finalprojectB;
 
 import junit.framework.TestCase;
 
+import java.util.Random;
+
 //You can use this as a skeleton for your 3 different test approach
 //It is an optional to use this file, you can generate your own test file(s) to test the target function!
 // Again, it is up to you to use this file or not!
@@ -18,9 +20,13 @@ public class UrlValidatorTest extends TestCase {
    }
 
    public static void main(String[] argv) {
-      UrlValidatorTest urlValidatorTest = new UrlValidatorTest("url test");
-      urlValidatorTest.testManualTest();
-      urlValidatorTest.testIsValidAuthority();
+       UrlValidatorTest urlValidatorTest = new UrlValidatorTest("url test");
+       urlValidatorTest.testManualTest();
+       urlValidatorTest.testIsValidScheme();
+       urlValidatorTest.testIsValidAuthority();
+       urlValidatorTest.testIsValidPath();
+       urlValidatorTest.testIsValidQuery();
+       urlValidatorTest.testIsValid();
    }
 
    public void testManualTest()
@@ -56,7 +62,6 @@ public class UrlValidatorTest extends TestCase {
 
 //      assertFalse(urlValidator.isValidAuthority(""));
 //      assertFalse(urlValidator.isValidAuthority("www..com"));
-//      assertFalse(urlValidator.isValidAuthority("foo.bar"));
 //      assertFalse(urlValidator.isValidAuthority("foo."));
 //      assertFalse(urlValidator.isValidAuthority(".bar"));
 
@@ -94,12 +99,25 @@ public class UrlValidatorTest extends TestCase {
        assertTrue(urlValidator.isValidQuery("?foo=bar;foo2=bar2"));
    }
 
-
-
    public void testIsValid()
    {
-      //You can use this function for programming based testing
-      UrlValidator urlValidator = new UrlValidator();
-      
+       final int NUM_URLS = 100;
+       Random rand = new Random();
+
+       String[] schemes = {"http://", "https://", "ftp://", "", "htp://", "bttp://", "://"};
+       String[] authorities = {"www.google.com", "en.wikipedia.org", "g.uk", "1.2.3.4", "foo.", ".bar"};
+       String[] paths = {"/page123", "/page/folder/", "repo//file", "/."};
+       String[] queries = {"?action=view", "?foo=bar&bar=foo", "?foo=bar;foo2=bar2", "$action=view"};
+
+       UrlValidator urlValidator = new UrlValidator();
+       for (int i = 0; i < NUM_URLS; i++)
+       {
+           String url = schemes[rand.nextInt(schemes.length-1)];
+           url += authorities[rand.nextInt(authorities.length-1)];
+           url += paths[rand.nextInt(paths.length-1)];
+           url += queries[rand.nextInt(queries.length-1)];
+
+           urlValidator.isValid(url);
+       }
    }
 }

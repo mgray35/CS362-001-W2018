@@ -3,8 +3,6 @@ package finalprojectB;
 
 import junit.framework.TestCase;
 
-import java.util.Random;
-
 //You can use this as a skeleton for your 3 different test approach
 //It is an optional to use this file, you can generate your own test file(s) to test the target function!
 // Again, it is up to you to use this file or not!
@@ -101,23 +99,29 @@ public class UrlValidatorTest extends TestCase {
 
    public void testIsValid()
    {
-       final int NUM_URLS = 100;
-       Random rand = new Random();
-
        String[] schemes = {"http://", "https://", "ftp://", "", "htp://", "bttp://", "://"};
        String[] authorities = {"www.google.com", "en.wikipedia.org", "g.uk", "1.2.3.4", "foo.", ".bar"};
        String[] paths = {"/page123", "/page/folder/", "repo//file", "/."};
        String[] queries = {"?action=view", "?foo=bar&bar=foo", "?foo=bar;foo2=bar2", "$action=view"};
 
        UrlValidator urlValidator = new UrlValidator();
-       for (int i = 0; i < NUM_URLS; i++)
+       for (int i = 0; i < schemes.length; i++)
        {
-           String url = schemes[rand.nextInt(schemes.length-1)];
-           url += authorities[rand.nextInt(authorities.length-1)];
-           url += paths[rand.nextInt(paths.length-1)];
-           url += queries[rand.nextInt(queries.length-1)];
+           for (int j = 0; j < authorities.length; j++)
+           {
+               for (int k = 0; k < paths.length; k++)
+               {
+                   for (int l = 0; l < queries.length; l++)
+                   {
+                       String url = schemes[i];
+                       url += authorities[j];
+                       url += paths[k];
+                       url += queries[l];
 
-           urlValidator.isValid(url);
+                       urlValidator.isValid(url);
+                   }
+               }
+           }
        }
    }
 }
